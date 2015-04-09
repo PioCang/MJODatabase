@@ -1,4 +1,4 @@
-package mjodatabase;
+/*package mjodatabase;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -138,7 +138,7 @@ public class MedicineGUI
      }   
      
      
-     public void updateMedicineTable(List<Medicine> inventory)
+     public JScrollPane updateMedicineTable(List<Medicine> inventory)
      {
           medsFrame.setTitle("Inventory as of " + currentDate.toString());
           medsData = new Object[inventory.size()][infoOnMedsTable.length];
@@ -193,6 +193,7 @@ public class MedicineGUI
           medsTable.setRowHeight(23);
           
           scrollPaneForMedsTable.setViewportView(medsTable);
+          return scrollPaneForMedsTable;
      }
      
     public void hideWindow()
@@ -216,3 +217,4 @@ public class MedicineGUI
          medsFrame.setVisible(true);
     }
 }
+*/

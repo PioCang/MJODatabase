@@ -3,7 +3,9 @@ package mjodatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.UIManager;
 
 /**
  * @since Feb 12 2015
@@ -15,7 +17,6 @@ public class MJOBranch
      private List<Transaction> transactions;
      public static MJOGUI mainGUI;
      public static AddMedicineGUI medicineInitializer;
-     public static MedicineGUI medicineInventoryGUI;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -31,7 +32,15 @@ public class MJOBranch
       */
      public static void main(String[] args)
      {          
-          medicineInventoryGUI = new MedicineGUI();
+          try
+          {
+              UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+          }
+          catch(Exception e)
+          {
+              //nothing
+          }
+          
           MJOBranch mjo = new MJOBranch();
           medicineInitializer = new AddMedicineGUI(mjo);
           
@@ -57,9 +66,7 @@ public class MJOBranch
           
           mjo.setInventory(StorageOperations.retrieveMedicines());
           
-          medicineInventoryGUI.updateMedicineTable(mjo.getInventory());
-          
-          mainGUI = new MJOGUI();
+          mainGUI = new MJOGUI(mjo);
           mainGUI.showWindow();          
      }
 

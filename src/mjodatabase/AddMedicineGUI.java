@@ -13,38 +13,6 @@ public class AddMedicineGUI extends javax.swing.JDialog
     public AddMedicineGUI(MJOBranch mjo)
     {
 	 initComponents();
-         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-	  * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	  *
-	 try
-	 {
-	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-	     {
-		  if ("Windows".equals(info.getName()))
-		  {
-		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		      break;
-		  }
-	     }
-	 }
-	 catch (ClassNotFoundException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (InstantiationException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (IllegalAccessException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (javax.swing.UnsupportedLookAndFeelException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
         //</editor-fold>*/
          
          this.mjo = mjo;
@@ -299,9 +267,9 @@ layout.setHorizontalGroup(
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(addMedAcceptButton)
                 .addGap(138, 138, 138))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addComponent(jLabel8)
-                .addGap(126, 126, 126))))
+                .addGap(60, 60, 60))))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,7 +367,7 @@ layout.setHorizontalGroup(
                
                MJOBranch.addMedicineToList(mjo.getInventory(), med);
                StorageOperations.encodeMedicines(mjo.getInventory());
-               MJOBranch.medicineInventoryGUI.updateMedicineTable(mjo.getInventory());
+               MJOBranch.mainGUI.updateMedicineTable(mjo.getInventory());
          }
 	 catch(Exception e)
          {

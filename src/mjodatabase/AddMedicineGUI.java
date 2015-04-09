@@ -1,13 +1,11 @@
 package mjodatabase;
 
 import datechooser.model.multiple.MultyModelBehavior;
-import datechooser.view.appearance.AppearancesList;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 public class AddMedicineGUI extends javax.swing.JDialog
@@ -19,7 +17,7 @@ public class AddMedicineGUI extends javax.swing.JDialog
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
 	  * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	  */
+	  *
 	 try
 	 {
 	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
@@ -47,7 +45,7 @@ public class AddMedicineGUI extends javax.swing.JDialog
 	 {
 	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	 }
-        //</editor-fold>
+        //</editor-fold>*/
          
          this.mjo = mjo;
     }
@@ -206,6 +204,7 @@ public class AddMedicineGUI extends javax.swing.JDialog
                 true)));
     delDateClooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
     delDateClooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
+    delDateClooser.setCalendarPreferredSize(new Dimension(350, 300));
 
     expDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
@@ -250,6 +249,7 @@ public class AddMedicineGUI extends javax.swing.JDialog
             true)));
 expDateChooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
 expDateChooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
+expDateChooser.setCalendarPreferredSize(new Dimension(350, 300));
 
 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 getContentPane().setLayout(layout);
@@ -392,8 +392,8 @@ layout.setHorizontalGroup(
                med = new Medicine(genericNameTextField.getText(),
                          brandNameTextField.getText(),
                          lotNumTextField.getText(),
-                         (GregorianCalendar) expDateChooser.getSelectedDate(),
-                         (GregorianCalendar) delDateClooser.getSelectedDate(),
+                         (GregorianCalendar) expDateChooser.getSelectedDate().clone(),
+                         (GregorianCalendar) delDateClooser.getSelectedDate().clone(),
                          Integer.parseInt(initQuanTextField.getText()),
                          Double.parseDouble(pppTextField.getText()));
                

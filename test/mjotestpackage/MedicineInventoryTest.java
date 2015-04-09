@@ -4,7 +4,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import mjodatabase.MJOBranch;
 import mjodatabase.Medicine;
-import mjodatabase.MedicineGUI;
 import mjodatabase.StorageOperations;
 import org.junit.After;
 import org.junit.AfterClass;

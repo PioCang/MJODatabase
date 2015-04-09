@@ -353,8 +353,6 @@ public class MedicineInventoryTest
                assertEquals(med1.getCurrentQuantity(), 0);
                assertEquals(med2.getCurrentQuantity(), 0);
                assertEquals(med3.getCurrentQuantity(), 10);
-
-               MedicineGUI.showInventory(mjo.getInventory());
           }
           catch(IllegalArgumentException e)
           {

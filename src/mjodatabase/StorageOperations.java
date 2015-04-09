@@ -1,11 +1,13 @@
 package mjodatabase;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,6 +24,7 @@ public class StorageOperations
                ObjectOutputStream oos = new ObjectOutputStream(fos);
           )
           {
+               oos.writeObject(new Date());
                oos.writeInt(inventory.size());
                for (int i = 0; i < inventory.size(); i++)
                {
@@ -40,29 +43,35 @@ public class StorageOperations
      public static List<Medicine> retrieveMedicines()
      {
           ArrayList<Medicine> inventory = new ArrayList<>();
-          try
-          (
-               FileInputStream fis = new FileInputStream(medsFile);
-               ObjectInputStream ois = new ObjectInputStream(fis);
-          )
+          MedicineGUI.currentDate = new Date();
+          
+          if (new File(medsFile).exists())
           {
-               int n = ois.readInt();
-               for (int i = 0; i < n; i++)
+               try
+               (
+                    FileInputStream fis = new FileInputStream(medsFile);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+               )
                {
-                    inventory.add((Medicine) ois.readObject());
+                    MedicineGUI.currentDate = (Date) ois.readObject();
+                    int n = ois.readInt();
+                    for (int i = 0; i < n; i++)
+                    {
+                         inventory.add((Medicine) ois.readObject());
+                    }
+                    ois.close();
+                    fis.close();
                }
-               ois.close();
-               fis.close();
-          }
-          catch(IOException ex)
-          {
-               System.err.println("Cannot import medicine files.");
-               ex.printStackTrace();
-          }
-          catch(ClassNotFoundException e)
-          {
-               System.err.println("Cannot typecast to Medicine class.");
-               e.printStackTrace();
+               catch(IOException ex)
+               {
+                    System.err.println("Cannot import medicine files.");
+                    ex.printStackTrace();
+               }
+               catch(ClassNotFoundException e)
+               {
+                    System.err.println("Cannot typecast to Medicine class.");
+                    e.printStackTrace();
+               }
           }
 
           return inventory;

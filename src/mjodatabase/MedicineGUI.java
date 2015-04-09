@@ -3,6 +3,10 @@ package mjodatabase;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,6 +14,9 @@ import java.util.List;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -23,17 +30,16 @@ public class MedicineGUI
           "Current Quantity", "Expiry Date", "Date Delivered", "Lot #",
           "Price Per Piece", "Initial Quantity"};
 
-     private static JFrame medsFrame;
-     private static Date currentDate;
-     private static JTable medsTable;
-     private static Object[][] medsData;
+     private JFrame medsFrame;
+     public static Date currentDate;
+     private JTable medsTable;
+     private Object[][] medsData;
+     private JScrollPane scrollPaneForMedsTable;
+     private JMenuBar theMenuBar;
+     private JMenu theMenu;
+     private JMenuItem addMedicineItem;
 
-     private static final JScrollPane scrollPaneForMedsTable =
-                     new JScrollPane(medsTable,
-                         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-     public static void showInventory(List<Medicine> inventory)
+     public MedicineGUI()
      {
           try
           {
@@ -46,7 +52,95 @@ public class MedicineGUI
 
           currentDate = new Date();
           medsFrame = new JFrame("Inventory as of " + currentDate.toString());
+          theMenuBar = new JMenuBar();
+          theMenu = new JMenu("Click here to add medicine to inventory.");
+          addMedicineItem = new JMenuItem("Add medicine to inventory.");
+          theMenu.add(addMedicineItem);
+          theMenuBar.add(theMenu);
+          medsFrame.setJMenuBar(theMenuBar);
+          
+          addMedicineItem.addActionListener(new ActionListener()
+          {
 
+               @Override
+               public void actionPerformed(ActionEvent e)
+               {
+                    MJOBranch.medicineInitializer.showWindow();
+               }
+          });
+          
+          medsTable = new JTable();
+          
+          scrollPaneForMedsTable =
+                     new JScrollPane(medsTable,
+                         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+          scrollPaneForMedsTable.setViewportView(medsTable);
+          medsFrame.add(scrollPaneForMedsTable);
+
+          medsFrame.setPreferredSize(new Dimension(1000, 700));
+          medsFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+          
+          medsFrame.addWindowListener(new WindowListener()
+          {
+
+               @Override
+               public void windowOpened(WindowEvent e)
+               {
+               }
+
+               @Override
+               public void windowClosing(WindowEvent e)
+               {
+                    MJOBranch.mainGUI.showWindow();
+                    hideWindow();
+               }
+
+               @Override
+               public void windowClosed(WindowEvent e)
+               {
+               }
+
+               @Override
+               public void windowIconified(WindowEvent e)
+               {
+               }
+
+               @Override
+               public void windowDeiconified(WindowEvent e)
+               {
+               }
+
+               @Override
+               public void windowActivated(WindowEvent e)
+               {
+               }
+
+               @Override
+               public void windowDeactivated(WindowEvent e)
+               {
+               }
+          });
+
+          Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+          // Determine the new location of the window
+          int w = medsFrame.getPreferredSize().width;
+          int h = medsFrame.getPreferredSize().height;
+          int x = (dim.width-w)/2;
+          int y = (dim.height-h)/2;
+
+          // Move the window
+          medsFrame.setLocation(x, y);
+
+          medsFrame.pack();
+     }   
+     
+     
+     public void updateMedicineTable(List<Medicine> inventory)
+     {
+          medsFrame.setTitle("Inventory as of " + currentDate.toString());
           medsData = new Object[inventory.size()][infoOnMedsTable.length];
           GregorianCalendar cal;
           String temp;
@@ -97,17 +191,18 @@ public class MedicineGUI
           }
           medsTable.setFont(new Font("Calibri", Font.PLAIN , 17));
           medsTable.setRowHeight(23);
-
-
-
-
+          
           scrollPaneForMedsTable.setViewportView(medsTable);
-          medsFrame.add(scrollPaneForMedsTable);
-
-          medsFrame.setPreferredSize(new Dimension(1000, 700));
-          medsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-          Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+     }
+     
+    public void hideWindow()
+    {
+         medsFrame.dispose();
+    }
+    
+    public void showWindow()
+    {
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
           // Determine the new location of the window
           int w = medsFrame.getPreferredSize().width;
@@ -117,8 +212,7 @@ public class MedicineGUI
 
           // Move the window
           medsFrame.setLocation(x, y);
-
-          medsFrame.pack();
-          //medsFrame.setVisible(true);
-     }
+         
+         medsFrame.setVisible(true);
+    }
 }

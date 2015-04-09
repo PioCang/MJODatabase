@@ -14,6 +14,9 @@ public class MJOBranch
 {
      private List<Medicine> inventory;
      private List<Transaction> transactions;
+     public static MJOGUI mainGUI;
+     public static AddMedicineGUI medicineInitializer;
+     public static MedicineGUI medicineInventoryGUI;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -28,41 +31,37 @@ public class MJOBranch
       * @param args the command line arguments
       */
      public static void main(String[] args)
-     {
+     {          
+          medicineInventoryGUI = new MedicineGUI();
+          MJOBranch mjo = new MJOBranch();
+          medicineInitializer = new AddMedicineGUI(mjo);
+          
+          
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
           GregorianCalendar del = new GregorianCalendar(1932, 0, 1);
           Medicine med1 = null, med2 = null, med3 = null;
-
-          MJOBranch mjo = new MJOBranch();
-
           try
           {
                med1 = new Medicine("Paracetamol", "Biogesic", "1", exp, del, 50, 2.5);
                med2 = new Medicine("Paracetamol", "Biogesic", "2", exp, del, 25, 2.5);
                med3 = new Medicine("Paracetamol", "Biogesic", "3", exp, del, 25, 2.5);
 
-               mjo.addMedicineToInventory(med1);
-               mjo.addMedicineToInventory(med2);
-               mjo.addMedicineToInventory(med3);
-
-               mjo.makeDeductions(med1, 20);
-
-
-               //side note: in reality, we would ALWAYS deduct from med1
-               //(the first to expire). this is only a test
-               mjo.makeDeductions(med2, 15);
-
-
-               mjo.makeDeductions(med3, 5);
-
-               mjo.makeDeductions(med1, 50);
-
-               MedicineGUI.showInventory(mjo.getInventory());
+               MJOBranch.addMedicineToList(mjo.getInventory(), med1);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med2);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med3);
           }
           catch(Exception e)
           {
                e.printStackTrace();
-          }*/
+          }
+          StorageOperations.encodeMedicines(mjo.getInventory());*/
+          
+          mjo.setInventory(StorageOperations.retrieveMedicines());
+          
+          medicineInventoryGUI.updateMedicineTable(mjo.getInventory());
+          
+          mainGUI = new MJOGUI();
+          mainGUI.showWindow();          
      }
 
 
@@ -188,9 +187,9 @@ public class MJOBranch
           for (int i = 0; i < inventory.size(); i++)
                medsAsArray[i] = inventory.get(i);
 
-          Arrays.sort(medsAsArray, new lotNumberComparator());
-          Arrays.sort(medsAsArray, new deliveryDateComparator());
-          Arrays.sort(medsAsArray, new expiryDateComparator());
+          Arrays.sort(medsAsArray, new LotNumberComparator());
+          Arrays.sort(medsAsArray, new DeliveryDateComparator());
+          Arrays.sort(medsAsArray, new ExpiryDateComparator());
           Arrays.sort(medsAsArray, new MedBrandNameComparator());
           Arrays.sort(medsAsArray, new MedGenericNameComparator());
 
@@ -288,7 +287,7 @@ class MedBrandNameComparator implements Comparator<Medicine>
      }
 }
 
-class lotNumberComparator implements Comparator<Medicine>
+class LotNumberComparator implements Comparator<Medicine>
 {
      @Override
      public int compare(Medicine a, Medicine b)
@@ -297,7 +296,7 @@ class lotNumberComparator implements Comparator<Medicine>
      }
 }
 
-class deliveryDateComparator implements Comparator<Medicine>
+class DeliveryDateComparator implements Comparator<Medicine>
 {
      @Override
      public int compare(Medicine a, Medicine b)
@@ -306,7 +305,7 @@ class deliveryDateComparator implements Comparator<Medicine>
      }
 }
 
-class expiryDateComparator implements Comparator<Medicine>
+class ExpiryDateComparator implements Comparator<Medicine>
 {
      @Override
      public int compare(Medicine a, Medicine b)

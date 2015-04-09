@@ -1,10 +1,55 @@
 package mjodatabase;
 
-public class AddMedicineGUI extends javax.swing.JFrame
+import datechooser.model.multiple.MultyModelBehavior;
+import datechooser.view.appearance.AppearancesList;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
+public class AddMedicineGUI extends javax.swing.JDialog
 {
-    public AddMedicineGUI()
+    public AddMedicineGUI(MJOBranch mjo)
     {
 	 initComponents();
+         /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	  * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	  */
+	 try
+	 {
+	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+	     {
+		  if ("Windows".equals(info.getName()))
+		  {
+		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		      break;
+		  }
+	     }
+	 }
+	 catch (ClassNotFoundException ex)
+	 {
+	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	 }
+	 catch (InstantiationException ex)
+	 {
+	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	 }
+	 catch (IllegalAccessException ex)
+	 {
+	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	 }
+	 catch (javax.swing.UnsupportedLookAndFeelException ex)
+	 {
+	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	 }
+        //</editor-fold>
+         
+         this.mjo = mjo;
     }
 
     /**
@@ -35,7 +80,8 @@ public class AddMedicineGUI extends javax.swing.JFrame
         delDateClooser = new datechooser.beans.DateChooserCombo();
         expDateChooser = new datechooser.beans.DateChooserCombo();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setTitle("Add Medicine");
 
         genericNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -70,7 +116,7 @@ public class AddMedicineGUI extends javax.swing.JFrame
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel8.setText("Add Medicine");
+        jLabel8.setText("Please input medicine data:");
 
         genericNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         genericNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -158,7 +204,8 @@ public class AddMedicineGUI extends javax.swing.JFrame
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    delDateClooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 16));
+    delDateClooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
+    delDateClooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
 
     expDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
@@ -201,7 +248,8 @@ public class AddMedicineGUI extends javax.swing.JFrame
             (datechooser.view.BackRenderer)null,
             false,
             true)));
-expDateChooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 16));
+expDateChooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
+expDateChooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
 
 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 getContentPane().setLayout(layout);
@@ -292,14 +340,75 @@ layout.setHorizontalGroup(
             .addComponent(addMedAcceptButton)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
+    
+         addWindowListener(new WindowListener()
+         {
+
+             @Override
+             public void windowOpened(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowClosing(WindowEvent e)
+             {
+                  clearFields();
+             }
+
+             @Override
+             public void windowClosed(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowIconified(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowDeiconified(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowActivated(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowDeactivated(WindowEvent e)
+             {
+             }
+        });
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMedAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addMedAcceptButtonActionPerformed
     {//GEN-HEADEREND:event_addMedAcceptButtonActionPerformed
-	 
-	 
+         Medicine med = null;
+         try
+         {
+               med = new Medicine(genericNameTextField.getText(),
+                         brandNameTextField.getText(),
+                         lotNumTextField.getText(),
+                         (GregorianCalendar) expDateChooser.getSelectedDate(),
+                         (GregorianCalendar) delDateClooser.getSelectedDate(),
+                         Integer.parseInt(initQuanTextField.getText()),
+                         Double.parseDouble(pppTextField.getText()));
+               
+               MJOBranch.addMedicineToList(mjo.getInventory(), med);
+               StorageOperations.encodeMedicines(mjo.getInventory());
+               MJOBranch.medicineInventoryGUI.updateMedicineTable(mjo.getInventory());
+         }
+	 catch(Exception e)
+         {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
+              return;
+         }
+
+         this.dispose();
+         this.clearFields();
     }//GEN-LAST:event_addMedAcceptButtonActionPerformed
 
     private void genericNameTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genericNameTextFieldActionPerformed
@@ -327,53 +436,32 @@ layout.setHorizontalGroup(
         // TODO add your handling code here:
     }//GEN-LAST:event_brandNameTextFieldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[])
+    
+    public void showWindow()
     {
-	 /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-	  * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	  */
-	 try
-	 {
-	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-	     {
-		  if ("Windows".equals(info.getName()))
-		  {
-		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		      break;
-		  }
-	     }
-	 }
-	 catch (ClassNotFoundException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (InstantiationException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (IllegalAccessException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (javax.swing.UnsupportedLookAndFeelException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-        //</editor-fold>
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-	 /* Create and display the form */
-	 java.awt.EventQueue.invokeLater(new Runnable()
-	 {
-	     public void run()
-	     {
-		  new AddMedicineGUI().setVisible(true);
-	     }
-	 });
+          // Determine the new location of the window
+          int w = this.getPreferredSize().width;
+          int h = this.getPreferredSize().height;
+          int x = (dim.width-w)/2;
+          int y = (dim.height-h)/2;
+
+          // Move the window
+          this.setLocation(x, y);
+         
+         this.setVisible(true);
+    }
+    
+    private void clearFields()
+    {
+         genericNameTextField.setText("");
+         brandNameTextField.setText("");
+         lotNumTextField.setText("");
+         initQuanTextField.setText("");
+         pppTextField.setText("");
+         expDateChooser.setSelectedDate(new GregorianCalendar());
+         delDateClooser.setSelectedDate(new GregorianCalendar());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -394,5 +482,6 @@ layout.setHorizontalGroup(
     private javax.swing.JLabel loyNumLabel;
     private javax.swing.JLabel pppLabel;
     private javax.swing.JTextField pppTextField;
+    private MJOBranch mjo;
     // End of variables declaration//GEN-END:variables
 }

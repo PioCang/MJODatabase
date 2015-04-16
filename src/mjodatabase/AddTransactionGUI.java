@@ -34,7 +34,8 @@ public class AddTransactionGUI extends javax.swing.JDialog
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(430, 390));
         setPreferredSize(new java.awt.Dimension(430, 390));
@@ -139,6 +140,7 @@ public class AddTransactionGUI extends javax.swing.JDialog
             }
         });
         getContentPane().add(memberNoRadioB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
+        memberNoRadioB.setSelected(true);
 
         grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         grandTotalLabel.setText("GRAND TOTAL: PHP");
@@ -215,12 +217,12 @@ public class AddTransactionGUI extends javax.swing.JDialog
 
     private void addMedPurButtonActionPerformed(java.awt.event.ActionEvent evt)                                                
     {                                                    
-        // TODO add your handling code here:
+        MJOBranch.listItemBuilder.showWindow();
     }                                               
 
     private void addFreeMedButtonActionPerformed(java.awt.event.ActionEvent evt)                                                 
     {                                                     
-        // TODO add your handling code here:
+        MJOBranch.listItemBuilder.showWindow();
     }                                                
 
     private void compNameTextField1ActionPerformed(java.awt.event.ActionEvent evt)                                                   

@@ -1,5 +1,9 @@
 package mjodatabase;
 
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 public class AddTransactionMedicineGUI extends javax.swing.JDialog
 {
     public AddTransactionMedicineGUI()
@@ -25,9 +29,9 @@ public class AddTransactionMedicineGUI extends javax.swing.JDialog
         jLabel8 = new javax.swing.JLabel();
         addMedAcceptButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setMinimumSize(new java.awt.Dimension(425, 325));
-        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(425, 325));
         setResizable(false);
         getContentPane().setLayout(null);
@@ -153,47 +157,23 @@ public class AddTransactionMedicineGUI extends javax.swing.JDialog
 
     }                                                  
 
-    public static void main(String args[])
+    
+    public void showWindow()
     {
-	 try
-	 {
-	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-	     {
-		  if ("Windows".equals(info.getName()))
-		  {
-		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		      break;
-		  }
-	     }
-	 }
-	 catch (ClassNotFoundException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (InstantiationException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (IllegalAccessException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (javax.swing.UnsupportedLookAndFeelException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionMedicineGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-        //</editor-fold>
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-	 /* Create and display the form */
-	 java.awt.EventQueue.invokeLater(new Runnable()
-	 {
-	     public void run()
-	     {
-		  new AddTransactionMedicineGUI().setVisible(true);
-	     }
-	 });
+          // Determine the new location of the window
+          int w = this.getPreferredSize().width;
+          int h = this.getPreferredSize().height;
+          int x = (dim.width-w)/2;
+          int y = (dim.height-h)/2;
+
+          // Move the window
+          this.setLocation(x, y);
+         
+         this.setVisible(true);
     }
-
+    
     // Variables declaration - do not modify                     
     private javax.swing.JButton addMedAcceptButton;
     private javax.swing.JTextField brandNameTextField;

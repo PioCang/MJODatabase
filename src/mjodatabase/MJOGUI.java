@@ -1,5 +1,7 @@
 package mjodatabase;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -10,13 +12,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class MJOGUI extends javax.swing.JFrame {
@@ -65,7 +70,11 @@ public class MJOGUI extends javax.swing.JFrame {
      
     
     // TRANSACTION LIST COMPONENTS
-    JButton addNewTransactionButton;
+    private JButton addNewTransactionButton;
+    private ButtonColumn columnForPurchasedMeds;
+    private ButtonColumn columnForFreeMeds;
+    private AbstractAction actionsForFreeColumnButtons;
+    private AbstractAction actionsForPurchasedColumnButtons;
    
      
      
@@ -238,10 +247,28 @@ public class MJOGUI extends javax.swing.JFrame {
                    MJOBranch.transactionInitializer.showWindow();
               }
          });
+          
+         actionsForPurchasedColumnButtons = new AbstractAction()
+         {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   System.out.println("purchased");
+              }
+         };
+         
+         actionsForFreeColumnButtons = new AbstractAction()
+         {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   System.out.println("free");
+              }
+         };
         
         
         switchToHomeView();
-    }
+    }// </editor-fold>     
 
     private void customerTransButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -444,7 +471,7 @@ public class MJOGUI extends javax.swing.JFrame {
     {
          getContentPane().removeAll();
          
-         theTableForGUI = new JTable();
+         theTableForGUI = new JTable();      
           theScrollPaneForGUI =
                      new JScrollPane(theTableForGUI,
                          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -517,8 +544,31 @@ public class MJOGUI extends javax.swing.JFrame {
                transData[i][7] = inventory.get(i).getInitialQuantity();
           }
 
-          theTableForGUI = new JTable();
+          theTableForGUI = new JTable()
+          {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+            {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+
+                Color alternateColor = new Color(252,242,206);
+                Color whiteColor = Color.WHITE;
+                if (!returnComp.getBackground().equals(getSelectionBackground()))
+                {
+                    Color bg = (row % 2 == 0)? alternateColor : whiteColor;
+                    returnComp .setBackground(bg);
+                    bg = null;
+                }
+            return returnComp;
+            }
+        }
+        ;            
+                  
           theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 15));
+          theTableForGUI.getTableHeader().setReorderingAllowed(false);
+          theTableForGUI.setSelectionBackground(new Color(105,80,255));
+          theTableForGUI.getTableHeader().setResizingAllowed(false);
+          theTableForGUI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
           theTableForGUI.setModel(new DefaultTableModel(transData, infoOnMedsTable)
               {
@@ -613,23 +663,54 @@ public class MJOGUI extends javax.swing.JFrame {
                transData[i][3] = transList.get(i).getMiddleName();
                transData[i][4] = transList.get(i).getCompanyName();
                transData[i][5] = transList.get(i).isMember();
-               transData[i][6] = ""; // Dapat purchased meds JButton ito
-               transData[i][7] = ""; // Dapat free memds JButton ito
+               transData[i][6] = "Click to view...";
+               transData[i][7] = "Click to view..."; // Dapat free memds JButton ito
                transData[i][8] = transList.get(i).getGrandTotal();
           }
 
-          theTableForGUI = new JTable();
+          theTableForGUI = new JTable()
+          {
+               @Override
+               public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+               {
+                   Component returnComp = super.prepareRenderer(renderer, row, column);
+
+                   Color alternateColor = new Color(252,242,206);
+                   Color whiteColor = Color.WHITE;
+                   if (!returnComp.getBackground().equals(getSelectionBackground()))
+                   {
+                       Color bg = (row % 2 == 0)? alternateColor : whiteColor;
+                       returnComp .setBackground(bg);
+                       bg = null;
+                   }
+                   return returnComp;
+               }
+          }
+          ;   
           theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 15));
+          theTableForGUI.getTableHeader().setReorderingAllowed(false);
+          theTableForGUI.setSelectionBackground(new Color(105,80,255));
+          theTableForGUI.getTableHeader().setResizingAllowed(false);
+          theTableForGUI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
           theTableForGUI.setModel(new DefaultTableModel(transData, infoOnTransactionTable)
               {
                   @Override
                   public boolean isCellEditable(int rowIndex, int mColIndex)
                   {
+                      if (mColIndex == 6 || mColIndex == 7)
+                      {
+                           return true;
+                      }
                       return false;
                   }
               }
           );
+          
+          
+          
+          columnForPurchasedMeds = new ButtonColumn(theTableForGUI, actionsForPurchasedColumnButtons, 6);
+          columnForPurchasedMeds = new ButtonColumn(theTableForGUI, actionsForFreeColumnButtons, 7);
           
           DefaultTableCellRenderer centerAlign = new DefaultTableCellRenderer();
           centerAlign.setHorizontalAlignment(JLabel.CENTER);

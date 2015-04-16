@@ -1,10 +1,13 @@
-package mjdatabase;
+package mjodatabase;
+
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class BuildItemListGUI extends javax.swing.JDialog
 {
-    public BuildItemListGUI(java.awt.Frame parent, boolean modal)
-    {
-	 super(parent, modal);
+    public BuildItemListGUI()
+    {     
 	 initComponents();
     }
 
@@ -16,7 +19,8 @@ public class BuildItemListGUI extends javax.swing.JDialog
         addItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setMinimumSize(new java.awt.Dimension(660, 520));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(660, 500));
@@ -45,58 +49,24 @@ public class BuildItemListGUI extends javax.swing.JDialog
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt)                                              
     {                                                  
-        // TODO add your handling code here:
+        MJOBranch.itemSelector.showWindow();
     }                                             
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[])
+    
+    
+    public void showWindow()
     {
-	 try
-	 {
-	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-	     {
-		  if ("Windows".equals(info.getName()))
-		  {
-		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		      break;
-		  }
-	     }
-	 }
-	 catch (ClassNotFoundException ex)
-	 {
-	     java.util.logging.Logger.getLogger(BuildItemListGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (InstantiationException ex)
-	 {
-	     java.util.logging.Logger.getLogger(BuildItemListGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (IllegalAccessException ex)
-	 {
-	     java.util.logging.Logger.getLogger(BuildItemListGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (javax.swing.UnsupportedLookAndFeelException ex)
-	 {
-	     java.util.logging.Logger.getLogger(BuildItemListGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-	 java.awt.EventQueue.invokeLater(new Runnable()
-	 {
-	     public void run()
-	     {
-		  BuildItemListGUI dialog = new BuildItemListGUI(new javax.swing.JFrame(), true);
-		  dialog.addWindowListener(new java.awt.event.WindowAdapter()
-		  {
-		      @Override
-		      public void windowClosing(java.awt.event.WindowEvent e)
-		      {
-			   System.exit(0);
-		      }
-		  });
-		  dialog.setVisible(true);
-	     }
-	 });
+          // Determine the new location of the window
+          int w = this.getPreferredSize().width;
+          int h = this.getPreferredSize().height;
+          int x = (dim.width-w)/2;
+          int y = (dim.height-h)/2;
+
+          // Move the window
+          this.setLocation(x, y);
+         
+         this.setVisible(true);
     }
 
     // Variables declaration - do not modify                     

@@ -1,15 +1,14 @@
 package mjodatabase;
 
-public class AddTransactionMedicineGUI extends javax.swing.JFrame
+public class AddTransactionMedicineGUI extends javax.swing.JDialog
 {
-
     public AddTransactionMedicineGUI()
     {
 	 initComponents();
     }
 
-
-    @SuppressWarnings("unchecked")                        
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents()
     {
 
@@ -27,6 +26,10 @@ public class AddTransactionMedicineGUI extends javax.swing.JFrame
         addMedAcceptButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(425, 325));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(425, 325));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         subtotalTextField.setEditable(false);
@@ -40,7 +43,7 @@ public class AddTransactionMedicineGUI extends javax.swing.JFrame
             }
         });
         getContentPane().add(subtotalTextField);
-        subtotalTextField.setBounds(78, 215, 328, 26);
+        subtotalTextField.setBounds(116, 215, 290, 26);
 
         brandNameTextField.setEditable(false);
         brandNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -52,7 +55,7 @@ public class AddTransactionMedicineGUI extends javax.swing.JFrame
             }
         });
         getContentPane().add(brandNameTextField);
-        brandNameTextField.setBounds(167, 127, 239, 26);
+        brandNameTextField.setBounds(160, 127, 245, 26);
 
         initQuanTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         initQuanTextField.addActionListener(new java.awt.event.ActionListener()
@@ -82,14 +85,14 @@ public class AddTransactionMedicineGUI extends javax.swing.JFrame
         prescribingDoctorLabel.setBounds(10, 86, 136, 20);
 
         pppLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        pppLabel.setText("Price per piece (Php):");
+        pppLabel.setText("Price per piece: PHP");
         getContentPane().add(pppLabel);
-        pppLabel.setBounds(10, 127, 153, 20);
+        pppLabel.setBounds(10, 130, 143, 20);
 
         subtotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        subtotalLabel.setText("Subtotal:");
+        subtotalLabel.setText("Subtotal: PHP");
         getContentPane().add(subtotalLabel);
-        subtotalLabel.setBounds(10, 220, 64, 20);
+        subtotalLabel.setBounds(10, 218, 98, 20);
 
         numOfPcsLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         numOfPcsLabel.setText("Number of pieces:");

@@ -15,11 +15,11 @@ public class MJOBranch
 {
      private List<Medicine> inventory;
      private List<Transaction> transactions;
-     public static MJOGUI mainGUI;
-     public static AddMedicineGUI medicineInitializer;
-     public static AddTransactionGUI transactionInitializer;
-     public static BuildItemListGUI listItemBuilder;
-     public static AddTransactionMedicineGUI itemSelector;
+     public static MasterGUI mainGUI;
+     public static MedicineCreatorGUI medicineInitializer;
+     public static TransactionCreatorGUI transactionInitializer;
+     public static TransactionItemListBuilderGUI listItemBuilder;
+     public static TransactionItemCreatorGUI itemSelector;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -45,10 +45,10 @@ public class MJOBranch
           }
           
           MJOBranch mjo = new MJOBranch();
-          medicineInitializer = new AddMedicineGUI(mjo);
-          transactionInitializer = new AddTransactionGUI(mjo);
-          listItemBuilder = new BuildItemListGUI();
-          itemSelector = new AddTransactionMedicineGUI();
+          medicineInitializer = new MedicineCreatorGUI(mjo);
+          transactionInitializer = new TransactionCreatorGUI(mjo);
+          listItemBuilder = new TransactionItemListBuilderGUI();
+          itemSelector = new TransactionItemCreatorGUI();
           
           
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
@@ -73,7 +73,7 @@ public class MJOBranch
           mjo.setInventory(StorageOperations.retrieveMedicines());
           mjo.setTransactionList(StorageOperations.retrieveTransactions());
           
-          mainGUI = new MJOGUI(mjo);
+          mainGUI = new MasterGUI(mjo);
           mainGUI.showWindow();          
      }
 

@@ -4,9 +4,9 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class AddTransactionMedicineGUI extends javax.swing.JDialog
+public class TransactionItemCreatorGUI extends javax.swing.JDialog
 {
-    public AddTransactionMedicineGUI()
+    public TransactionItemCreatorGUI()
     {
 	 initComponents();
     }

@@ -4,9 +4,9 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class BuildItemListGUI extends javax.swing.JDialog
+public class TransactionItemListBuilderGUI extends javax.swing.JDialog
 {
-    public BuildItemListGUI()
+    public TransactionItemListBuilderGUI()
     {     
 	 initComponents();
     }

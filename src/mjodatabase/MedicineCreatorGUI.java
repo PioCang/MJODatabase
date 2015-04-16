@@ -8,9 +8,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
-public class AddMedicineGUI extends javax.swing.JDialog
+public class MedicineCreatorGUI extends javax.swing.JDialog
 {
-    public AddMedicineGUI(MJOBranch mjo)
+    public MedicineCreatorGUI(MJOBranch mjo)
     {
 	 initComponents();
         //</editor-fold>*/

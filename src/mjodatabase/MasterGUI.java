@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 
-public class MJOGUI extends javax.swing.JFrame {
+public class MasterGUI extends javax.swing.JFrame {
 
      
      // HOME BUTTONS
@@ -71,14 +71,14 @@ public class MJOGUI extends javax.swing.JFrame {
     
     // TRANSACTION LIST COMPONENTS
     private JButton addNewTransactionButton;
-    private ButtonColumn columnForPurchasedMeds;
-    private ButtonColumn columnForFreeMeds;
+    private JButtonColumnInJTable columnForPurchasedMeds;
+    private JButtonColumnInJTable columnForFreeMeds;
     private AbstractAction actionsForFreeColumnButtons;
     private AbstractAction actionsForPurchasedColumnButtons;
    
      
      
-    public MJOGUI(MJOBranch mjo) {
+    public MasterGUI(MJOBranch mjo) {
          this.mjo = mjo;
         initComponents();
     } 
@@ -709,8 +709,8 @@ public class MJOGUI extends javax.swing.JFrame {
           
           
           
-          columnForPurchasedMeds = new ButtonColumn(theTableForGUI, actionsForPurchasedColumnButtons, 6);
-          columnForPurchasedMeds = new ButtonColumn(theTableForGUI, actionsForFreeColumnButtons, 7);
+          columnForPurchasedMeds = new JButtonColumnInJTable(theTableForGUI, actionsForPurchasedColumnButtons, 6);
+          columnForPurchasedMeds = new JButtonColumnInJTable(theTableForGUI, actionsForFreeColumnButtons, 7);
           
           DefaultTableCellRenderer centerAlign = new DefaultTableCellRenderer();
           centerAlign.setHorizontalAlignment(JLabel.CENTER);

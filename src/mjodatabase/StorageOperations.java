@@ -43,7 +43,7 @@ public class StorageOperations
      public static List<Medicine> retrieveMedicines()
      {
           ArrayList<Medicine> inventory = new ArrayList<>();
-          MJOGUI.currentDate = new Date();
+          MasterGUI.currentDate = new Date();
           
           if (new File(medsFile).exists())
           {
@@ -53,7 +53,7 @@ public class StorageOperations
                     ObjectInputStream ois = new ObjectInputStream(fis);
                )
                {
-                    MJOGUI.currentDate = (Date) ois.readObject();
+                    MasterGUI.currentDate = (Date) ois.readObject();
                     int n = ois.readInt();
                     for (int i = 0; i < n; i++)
                     {
@@ -105,7 +105,7 @@ public class StorageOperations
      public static List<Transaction> retrieveTransactions()
      {
           ArrayList<Transaction> transactionList = new ArrayList<>();
-          MJOGUI.currentDate = new Date();
+          MasterGUI.currentDate = new Date();
           
           if (new File(transFile).exists())
           {
@@ -115,7 +115,7 @@ public class StorageOperations
                     ObjectInputStream ois = new ObjectInputStream(fis);
                )
                { 
-                    MJOGUI.currentDate = (Date) ois.readObject();
+                    MasterGUI.currentDate = (Date) ois.readObject();
                     int n = ois.readInt();
                     for (int i = 0; i < n; i++)
                     {

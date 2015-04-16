@@ -4,9 +4,9 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class AddTransactionGUI extends javax.swing.JDialog
+public class TransactionCreatorGUI extends javax.swing.JDialog
 {
-    public AddTransactionGUI(MJOBranch mjo)
+    public TransactionCreatorGUI(MJOBranch mjo)
     {
          this.mjo = mjo;
 	 initComponents();

@@ -8,8 +8,8 @@ import javax.swing.plaf.ButtonUI;
 import javax.swing.table.*;
 
 /**
- *  The ButtonColumn class provides a renderer and an editor that looks like a
- *  JButton. The renderer and editor will then be used for a specified column
+ *  The JButtonColumnInJTable class provides a renderer and an editor that looks like a
+  JButton. The renderer and editor will then be used for a specified column
  *  in the table. The TableModel will contain the String to be displayed on
  *  the button.
  *
@@ -20,7 +20,7 @@ import javax.swing.table.*;
  *  the model row number of the button that was clicked.
  *
  */
-public class ButtonColumn extends AbstractCellEditor
+public class JButtonColumnInJTable extends AbstractCellEditor
 	implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
 {
 	private JTable table;
@@ -43,7 +43,7 @@ public class ButtonColumn extends AbstractCellEditor
 	 *  @param action the Action to be invoked when the button is invoked
 	 *  @param column the column to which the button renderer/editor is added
 	 */
-	public ButtonColumn(JTable table, Action action, int column)
+	public JButtonColumnInJTable(JTable table, Action action, int column)
 	{
 		this.table = table;
 		this.action = action;

@@ -12,7 +12,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
 	 initComponents();
     }
     @SuppressWarnings("unchecked")
-   private void initComponents()
+    private void initComponents()
     {
 
         isMemButtonGrp = new javax.swing.ButtonGroup();
@@ -34,17 +34,17 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(430, 390));
-        setPreferredSize(new java.awt.Dimension(430, 390));
+        setMinimumSize(new java.awt.Dimension(425, 410));
+        setPreferredSize(new java.awt.Dimension(425, 410));
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         addTransLabel.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         addTransLabel.setText("Add Transaction");
-        getContentPane().add(addTransLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+        getContentPane().add(addTransLabel);
+        addTransLabel.setBounds(134, 10, 144, 25);
 
         grandTotalTextField.setEditable(false);
         grandTotalTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -58,7 +58,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 grandTotalTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(grandTotalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 233, 246, 29));
+        getContentPane().add(grandTotalTextField);
+        grandTotalTextField.setBounds(170, 260, 240, 30);
 
         addTransAcceptButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         addTransAcceptButton.setText("ACCEPT AND FINALIZE TRANSACTION");
@@ -69,7 +70,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 addTransAcceptButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addTransAcceptButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 318, -1, 30));
+        getContentPane().add(addTransAcceptButton);
+        addTransAcceptButton.setBounds(47, 340, 330, 30);
 
         firstNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         firstNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -79,7 +81,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 firstNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(firstNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 90, 316, -1));
+        getContentPane().add(firstNameTextField);
+        firstNameTextField.setBounds(97, 90, 313, 26);
 
         midNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         midNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -89,7 +92,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 midNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(midNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 127, 303, -1));
+        getContentPane().add(midNameTextField);
+        midNameTextField.setBounds(111, 130, 299, 26);
 
         surNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -99,23 +103,28 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 surNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(surNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 53, 329, -1));
+        getContentPane().add(surNameTextField);
+        surNameTextField.setBounds(83, 50, 327, 26);
 
         surNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameLabel.setText("Surname:");
-        getContentPane().add(surNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
+        getContentPane().add(surNameLabel);
+        surNameLabel.setBounds(10, 50, 69, 20);
 
         firstNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         firstNameLabel.setText("First Name:");
-        getContentPane().add(firstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 93, -1, -1));
+        getContentPane().add(firstNameLabel);
+        firstNameLabel.setBounds(10, 90, 82, 20);
 
         midNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         midNameLabel.setText("Middle Name:");
-        getContentPane().add(midNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 127, -1, 26));
+        getContentPane().add(midNameLabel);
+        midNameLabel.setBounds(10, 130, 98, 26);
 
         compNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         compNameLabel.setText("Company Name:");
-        getContentPane().add(compNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 164, -1, -1));
+        getContentPane().add(compNameLabel);
+        compNameLabel.setBounds(10, 170, 119, 20);
 
         isMemButtonGrp.add(memberYesRadioB);
         memberYesRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -127,7 +136,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 memberYesRadioBActionPerformed(evt);
             }
         });
-        getContentPane().add(memberYesRadioB, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
+        getContentPane().add(memberYesRadioB);
+        memberYesRadioB.setBounds(180, 220, 51, 29);
 
         isMemButtonGrp.add(memberNoRadioB);
         memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -139,12 +149,13 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 memberNoRadioBActionPerformed(evt);
             }
         });
-        getContentPane().add(memberNoRadioB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
-        memberNoRadioB.setSelected(true);
+        getContentPane().add(memberNoRadioB);
+        memberNoRadioB.setBounds(300, 220, 45, 29);
 
         grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         grandTotalLabel.setText("GRAND TOTAL: PHP");
-        getContentPane().add(grandTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 237, 154, -1));
+        getContentPane().add(grandTotalLabel);
+        grandTotalLabel.setBounds(10, 264, 150, 20);
 
         addMedPurButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         addMedPurButton.setText("ADD MEDICINE PURCHASES");
@@ -155,7 +166,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 addMedPurButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addMedPurButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        getContentPane().add(addMedPurButton);
+        addMedPurButton.setBounds(10, 300, 219, 27);
 
         addFreeMedButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         addFreeMedButton.setText("ADD FREE MEDICINE");
@@ -166,11 +178,13 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 addFreeMedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addFreeMedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 175, -1));
+        getContentPane().add(addFreeMedButton);
+        addFreeMedButton.setBounds(238, 300, 173, 27);
 
         isMemLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         isMemLabel1.setText("Is a Member?");
-        getContentPane().add(isMemLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        getContentPane().add(isMemLabel1);
+        isMemLabel1.setBounds(10, 220, 96, 20);
 
         compNameTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         compNameTextField1.addActionListener(new java.awt.event.ActionListener()
@@ -180,10 +194,11 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                 compNameTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(compNameTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 164, 280, -1));
+        getContentPane().add(compNameTextField1);
+        compNameTextField1.setBounds(134, 170, 276, 26);
 
         pack();
-    }// </editor-fold>                             
+    }// </editor-fold>                               
 
     private void addTransAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)                                                     
     {                                                         

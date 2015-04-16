@@ -12,22 +12,20 @@ public class AddTransactionGUI extends javax.swing.JDialog
 	 initComponents();
     }
     @SuppressWarnings("unchecked")
-    private void initComponents()
+   private void initComponents()
     {
+
         isMemButtonGrp = new javax.swing.ButtonGroup();
-        jButton1 = new javax.swing.JButton();
         addTransLabel = new javax.swing.JLabel();
         grandTotalTextField = new javax.swing.JTextField();
         addTransAcceptButton = new javax.swing.JButton();
         firstNameTextField = new javax.swing.JTextField();
         midNameTextField = new javax.swing.JTextField();
-        dateLabel = new javax.swing.JLabel();
         surNameTextField = new javax.swing.JTextField();
         surNameLabel = new javax.swing.JLabel();
         firstNameLabel = new javax.swing.JLabel();
         midNameLabel = new javax.swing.JLabel();
         compNameLabel = new javax.swing.JLabel();
-        dateChooser = new datechooser.beans.DateChooserCombo();
         memberYesRadioB = new javax.swing.JRadioButton();
         memberNoRadioB = new javax.swing.JRadioButton();
         grandTotalLabel = new javax.swing.JLabel();
@@ -36,20 +34,16 @@ public class AddTransactionGUI extends javax.swing.JDialog
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
 
-        jButton1.setText("jButton1");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(440, 460));
-        setPreferredSize(new java.awt.Dimension(440, 460));
-        getContentPane().setLayout(null);
+        setMinimumSize(new java.awt.Dimension(430, 390));
+        setPreferredSize(new java.awt.Dimension(430, 390));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         addTransLabel.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         addTransLabel.setText("Add Transaction");
-        getContentPane().add(addTransLabel);
-        addTransLabel.setBounds(134, 10, 144, 25);
+        getContentPane().add(addTransLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         grandTotalTextField.setEditable(false);
         grandTotalTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -63,10 +57,9 @@ public class AddTransactionGUI extends javax.swing.JDialog
                 grandTotalTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(grandTotalTextField);
-        grandTotalTextField.setBounds(130, 295, 280, 30);
+        getContentPane().add(grandTotalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 233, 246, 29));
 
-        addTransAcceptButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addTransAcceptButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         addTransAcceptButton.setText("ACCEPT AND FINALIZE TRANSACTION");
         addTransAcceptButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -75,8 +68,7 @@ public class AddTransactionGUI extends javax.swing.JDialog
                 addTransAcceptButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addTransAcceptButton);
-        addTransAcceptButton.setBounds(50, 380, 330, 30);
+        getContentPane().add(addTransAcceptButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 318, -1, 30));
 
         firstNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         firstNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -86,8 +78,7 @@ public class AddTransactionGUI extends javax.swing.JDialog
                 firstNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(firstNameTextField);
-        firstNameTextField.setBounds(96, 128, 319, 26);
+        getContentPane().add(firstNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 90, 316, -1));
 
         midNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         midNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -97,13 +88,7 @@ public class AddTransactionGUI extends javax.swing.JDialog
                 midNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(midNameTextField);
-        midNameTextField.setBounds(112, 172, 303, 26);
-
-        dateLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        dateLabel.setText("Date:");
-        getContentPane().add(dateLabel);
-        dateLabel.setBounds(10, 46, 38, 20);
+        getContentPane().add(midNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 127, 303, -1));
 
         surNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -113,147 +98,90 @@ public class AddTransactionGUI extends javax.swing.JDialog
                 surNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(surNameTextField);
-        surNameTextField.setBounds(83, 84, 332, 26);
+        getContentPane().add(surNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 53, 329, -1));
 
         surNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameLabel.setText("Surname:");
-        getContentPane().add(surNameLabel);
-        surNameLabel.setBounds(10, 87, 69, 20);
+        getContentPane().add(surNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
 
         firstNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         firstNameLabel.setText("First Name:");
-        getContentPane().add(firstNameLabel);
-        firstNameLabel.setBounds(10, 128, 82, 20);
+        getContentPane().add(firstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 93, -1, -1));
 
         midNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         midNameLabel.setText("Middle Name:");
-        getContentPane().add(midNameLabel);
-        midNameLabel.setBounds(10, 172, 98, 26);
+        getContentPane().add(midNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 127, -1, 26));
 
         compNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         compNameLabel.setText("Company Name:");
-        getContentPane().add(compNameLabel);
-        compNameLabel.setBounds(10, 220, 119, 20);
+        getContentPane().add(compNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 164, -1, -1));
 
-        dateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
-    dateChooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 16));
-    getContentPane().add(dateChooser);
-    dateChooser.setBounds(52, 46, 363, 20);
-
-    isMemButtonGrp.add(memberYesRadioB);
-    memberYesRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-    memberYesRadioB.setText("Yes");
-    memberYesRadioB.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
+        isMemButtonGrp.add(memberYesRadioB);
+        memberYesRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        memberYesRadioB.setText("Yes");
+        memberYesRadioB.addActionListener(new java.awt.event.ActionListener()
         {
-            memberYesRadioBActionPerformed(evt);
-        }
-    });
-    getContentPane().add(memberYesRadioB);
-    memberYesRadioB.setBounds(140, 260, 51, 29);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                memberYesRadioBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(memberYesRadioB, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
-    isMemButtonGrp.add(memberNoRadioB);
-    memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-    memberNoRadioB.setText("No");
-    memberNoRadioB.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
+        isMemButtonGrp.add(memberNoRadioB);
+        memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        memberNoRadioB.setText("No");
+        memberNoRadioB.addActionListener(new java.awt.event.ActionListener()
         {
-            memberNoRadioBActionPerformed(evt);
-        }
-    });
-    getContentPane().add(memberNoRadioB);
-    memberNoRadioB.setBounds(300, 260, 45, 29);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                memberNoRadioBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(memberNoRadioB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
 
-    grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-    grandTotalLabel.setText("GRAND TOTAL:");
-    getContentPane().add(grandTotalLabel);
-    grandTotalLabel.setBounds(10, 300, 120, 20);
+        grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        grandTotalLabel.setText("GRAND TOTAL: PHP");
+        getContentPane().add(grandTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 237, 154, -1));
 
-    addMedPurButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    addMedPurButton.setText("ADD MEDICINE PURCHASES");
-    addMedPurButton.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
+        addMedPurButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        addMedPurButton.setText("ADD MEDICINE PURCHASES");
+        addMedPurButton.addActionListener(new java.awt.event.ActionListener()
         {
-            addMedPurButtonActionPerformed(evt);
-        }
-    });
-    getContentPane().add(addMedPurButton);
-    addMedPurButton.setBounds(10, 340, 207, 25);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                addMedPurButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addMedPurButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-    addFreeMedButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    addFreeMedButton.setText("ADD FREE MEDICINE");
-    addFreeMedButton.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
+        addFreeMedButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        addFreeMedButton.setText("ADD FREE MEDICINE");
+        addFreeMedButton.addActionListener(new java.awt.event.ActionListener()
         {
-            addFreeMedButtonActionPerformed(evt);
-        }
-    });
-    getContentPane().add(addFreeMedButton);
-    addFreeMedButton.setBounds(250, 340, 163, 25);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                addFreeMedButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addFreeMedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 175, -1));
 
-    isMemLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-    isMemLabel1.setText("Is a Member?");
-    getContentPane().add(isMemLabel1);
-    isMemLabel1.setBounds(10, 260, 96, 20);
+        isMemLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        isMemLabel1.setText("Is a Member?");
+        getContentPane().add(isMemLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
-    compNameTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-    compNameTextField1.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
+        compNameTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        compNameTextField1.addActionListener(new java.awt.event.ActionListener()
         {
-            compNameTextField1ActionPerformed(evt);
-        }
-    });
-    getContentPane().add(compNameTextField1);
-    compNameTextField1.setBounds(133, 216, 282, 26);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                compNameTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(compNameTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 164, 280, -1));
 
-    pack();
-    }// </editor-fold>                        
+        pack();
+    }// </editor-fold>                             
 
     private void addTransAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)                                                     
     {                                                         
@@ -328,15 +256,12 @@ public class AddTransactionGUI extends javax.swing.JDialog
     private javax.swing.JLabel addTransLabel;
     private javax.swing.JLabel compNameLabel;
     private javax.swing.JTextField compNameTextField1;
-    private datechooser.beans.DateChooserCombo dateChooser;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JLabel grandTotalLabel;
     private javax.swing.JTextField grandTotalTextField;
     private javax.swing.ButtonGroup isMemButtonGrp;
     private javax.swing.JLabel isMemLabel1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JRadioButton memberNoRadioB;
     private javax.swing.JRadioButton memberYesRadioB;
     private javax.swing.JLabel midNameLabel;

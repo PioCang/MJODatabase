@@ -21,15 +21,66 @@ import javax.swing.table.DefaultTableModel;
 
 public class MJOGUI extends javax.swing.JFrame {
 
+     
+     // HOME BUTTONS
+    private javax.swing.JButton customerTransButton;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton medicineInventoryButton;
+    private javax.swing.JButton transactionButton;
+    private JButton addNewMedicineButton;
+    
+    //MEDICINE INVENTORY COMPONENTS
+    public static Date currentDate;
+     private JTable theTableForGUI;
+     private Object[][] transData;
+     private JScrollPane theScrollPaneForGUI;
+     private MJOBranch mjo;
+     private static final String[] infoOnMedsTable = { "Generic Name", "Brand Name",
+          "Current Quantity", "Expiry Date", "Date Delivered", "Lot #",
+          "Price Per Piece", "Initial Quantity"};
+     private static final String[] infoOnTransactionTable = {"Date", "Last Name",
+          "First Name", "Middle Name", "Company Name", "Member?", "Purchased Medicines",
+          "Free Medicines", "Grand Total"};
+    
+     //TRANSACTION SEARCH COMPONENTS
+     private javax.swing.JButton searchButton;
+    
+    private javax.swing.JComboBox monthsComboBox;
+    
+    private javax.swing.JLabel cusTransLabel;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JLabel middleNameLabel;
+    private javax.swing.JLabel searchCustomerLabel;
+    private javax.swing.JLabel searchByLabel;
+    private javax.swing.JLabel monthLabel;
+    private javax.swing.JLabel yearLabel;
+    
+    private javax.swing.JSeparator jSeparator1;
+    
+    private javax.swing.JTextField lastNameTextField;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JTextField middleNameTextField;
+    private javax.swing.JTextField yearTextField;
+     
+    
+    // TRANSACTION LIST COMPONENTS
+    JButton addNewTransactionButton;
+   
+     
+     
     public MJOGUI(MJOBranch mjo) {
          this.mjo = mjo;
         initComponents();
-    }
+    } 
+    
+    
+    
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
          setPreferredSize(new Dimension(1000, 700));
-         
+         setResizable(false);
          
         /* ************************
          * HOME VIEW COMPONENT INIT
@@ -54,7 +105,7 @@ public class MJOGUI extends javax.swing.JFrame {
         transactionButton.setText("Transaction");
         transactionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transactionButtonActionPerformed(evt);
+                switchToTransactionListView();
             }
         });
 
@@ -67,7 +118,16 @@ public class MJOGUI extends javax.swing.JFrame {
             }
         });
 
-        
+        addNewMedicineButton = new JButton("Add medicine to Inventory");
+          addNewMedicineButton.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
+          addNewMedicineButton.addActionListener(new ActionListener()
+          {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   MJOBranch.medicineInitializer.showWindow();
+              }
+         });
         
         
          /* ************************
@@ -163,6 +223,23 @@ public class MJOGUI extends javax.swing.JFrame {
             }
         });
         
+        
+         /* ************************
+         * TRANSACTION LIST INIT
+         ************************/
+        
+        addNewTransactionButton = new JButton("Create a new transaction");
+         addNewTransactionButton.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
+          addNewTransactionButton.addActionListener(new ActionListener()
+          {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   MJOBranch.transactionInitializer.showWindow();
+              }
+         });
+        
+        
         switchToHomeView();
     }
 
@@ -198,49 +275,11 @@ public class MJOGUI extends javax.swing.JFrame {
 
           // Move the window
           this.setLocation(x, y);
-         
-          
-          transactionButton.setEnabled(false);
+
          this.setVisible(true);
     }
     
-    // HOME BUTTONS
-    private javax.swing.JButton customerTransButton;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton medicineInventoryButton;
-    private javax.swing.JButton transactionButton;
-    private JButton addNewMedicineButton;
     
-    //MEDICINE INVENTORY COMPONENTS
-    public static Date currentDate;
-     private JTable medsTable;
-     private Object[][] medsData;
-     private JScrollPane scrollPaneForMedsTable;
-     private MJOBranch mjo;
-     public static final String[] infoOnMedsTable = { "Generic Name", "Brand Name",
-          "Current Quantity", "Expiry Date", "Date Delivered", "Lot #",
-          "Price Per Piece", "Initial Quantity"};
-    
-     //TRANSACTION SEARCH COMPONENTS
-     private javax.swing.JButton searchButton;
-    
-    private javax.swing.JComboBox monthsComboBox;
-    
-    private javax.swing.JLabel cusTransLabel;
-    private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JLabel middleNameLabel;
-    private javax.swing.JLabel searchCustomerLabel;
-    private javax.swing.JLabel searchByLabel;
-    private javax.swing.JLabel monthLabel;
-    private javax.swing.JLabel yearLabel;
-    
-    private javax.swing.JSeparator jSeparator1;
-    
-    private javax.swing.JTextField lastNameTextField;
-    private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JTextField middleNameTextField;
-    private javax.swing.JTextField yearTextField;
      
      
      
@@ -405,21 +444,11 @@ public class MJOGUI extends javax.swing.JFrame {
     {
          getContentPane().removeAll();
          
-         medsTable = new JTable();
-          scrollPaneForMedsTable =
-                     new JScrollPane(medsTable,
+         theTableForGUI = new JTable();
+          theScrollPaneForGUI =
+                     new JScrollPane(theTableForGUI,
                          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-          addNewMedicineButton = new JButton("Add medicine to Inventory");
-          addNewMedicineButton.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
-          addNewMedicineButton.addActionListener(new ActionListener()
-          {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                   MJOBranch.medicineInitializer.showWindow();
-              }
-         });
           
          
          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,7 +467,7 @@ public class MJOGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup())
                 .addGap(225, 225, 225)
                 .addComponent(addNewMedicineButton, GroupLayout.Alignment.CENTER)
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(scrollPaneForMedsTable))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(theScrollPaneForGUI))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -453,7 +482,7 @@ public class MJOGUI extends javax.swing.JFrame {
                 .addContainerGap(5, 8)
                 .addComponent(addNewMedicineButton)
                 .addContainerGap(10, 12)
-                .addComponent(scrollPaneForMedsTable))
+                .addComponent(theScrollPaneForGUI))
         );
          
          updateMedicineTable(mjo.getInventory());
@@ -462,36 +491,36 @@ public class MJOGUI extends javax.swing.JFrame {
     public void updateMedicineTable(List<Medicine> inventory)
      {
           this.setTitle("Inventory as of " + currentDate.toString());
-          medsData = new Object[inventory.size()][infoOnMedsTable.length];
+          transData = new Object[inventory.size()][infoOnMedsTable.length];
           GregorianCalendar cal;
           String temp;
 
           for(int i = 0; i < inventory.size(); i++)
           {
-               medsData[i][0] = inventory.get(i).getGenericName();
-               medsData[i][1] = inventory.get(i).getBrandName();
-               medsData[i][2] = inventory.get(i).getCurrentQuantity();
+               transData[i][0] = inventory.get(i).getGenericName();
+               transData[i][1] = inventory.get(i).getBrandName();
+               transData[i][2] = inventory.get(i).getCurrentQuantity();
 
                cal = inventory.get(i).getExpiryDate();
                temp = cal.get(Calendar.DAY_OF_MONTH) + " " +
                       cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)
                       + " " + cal.get(Calendar.YEAR);
-               medsData[i][3] = temp;
+               transData[i][3] = temp;
                cal = inventory.get(i).getDeliveryDate();
                temp = cal.get(Calendar.DAY_OF_MONTH) + " " +
                       cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)
                       + " " + cal.get(Calendar.YEAR);
-               medsData[i][4] = temp;
+               transData[i][4] = temp;
 
-               medsData[i][5] = inventory.get(i).getLotNumber();
-               medsData[i][6] = "P  " + inventory.get(i).getPricePerPiece();
-               medsData[i][7] = inventory.get(i).getInitialQuantity();
+               transData[i][5] = inventory.get(i).getLotNumber();
+               transData[i][6] = "P  " + inventory.get(i).getPricePerPiece();
+               transData[i][7] = inventory.get(i).getInitialQuantity();
           }
 
-          medsTable = new JTable();
-          medsTable.setFont(new Font("Calibri", Font.PLAIN , 15));
+          theTableForGUI = new JTable();
+          theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 15));
 
-          medsTable.setModel(new DefaultTableModel(medsData, infoOnMedsTable)
+          theTableForGUI.setModel(new DefaultTableModel(transData, infoOnMedsTable)
               {
                   @Override
                   public boolean isCellEditable(int rowIndex, int mColIndex)
@@ -506,12 +535,113 @@ public class MJOGUI extends javax.swing.JFrame {
           centerAlign.setVerticalAlignment(JLabel.CENTER);
           for (int i= 0; i < infoOnMedsTable.length; i++ )
           {
-              medsTable.getColumnModel().getColumn(i).setCellRenderer(centerAlign);
+              theTableForGUI.getColumnModel().getColumn(i).setCellRenderer(centerAlign);
           }
-          medsTable.setFont(new Font("Calibri", Font.PLAIN , 17));
-          medsTable.setRowHeight(23);
+          theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 17));
+          theTableForGUI.setRowHeight(23);
           
-          scrollPaneForMedsTable.setViewportView(medsTable);
+          theScrollPaneForGUI.setViewportView(theTableForGUI);
+     }
+    
+    
+    
+    public void switchToTransactionListView()
+    {
+         getContentPane().removeAll();
+         
+         //needs a similar code here
+         theTableForGUI = new JTable();
+          theScrollPaneForGUI =
+                     new JScrollPane(theTableForGUI,
+                         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+          
+         
+         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+         getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(medicineInventoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(customerTransButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(transactionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup())
+                .addGap(225, 225, 225)
+                .addComponent(addNewTransactionButton, GroupLayout.Alignment.CENTER)
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(theScrollPaneForGUI))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(medicineInventoryButton)
+                    .addComponent(customerTransButton)
+                    .addComponent(transactionButton))
+                .addContainerGap(10, 12)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(5, 8)
+                .addComponent(addNewTransactionButton)
+                .addContainerGap(10, 12)
+                .addComponent(theScrollPaneForGUI))
+        );
+        
+        updateTransactionTable(mjo.getTransactionList());
+    }
+    
+    public void updateTransactionTable(List<Transaction> transList)
+     {
+          this.setTitle("Inventory as of " + currentDate.toString());
+          transData = new Object[transList.size()][infoOnTransactionTable.length];
+          GregorianCalendar cal;
+          String temp;
+
+          for(int i = 0; i < transList.size(); i++)
+          {
+               cal = transList.get(i).getDate();
+               temp = cal.get(Calendar.DAY_OF_MONTH) + " " +
+                      cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)
+                      + " " + cal.get(Calendar.YEAR);
+               transData[i][0] = temp;
+               transData[i][1] = transList.get(i).getLastName();
+               transData[i][2] = transList.get(i).getFirstName();
+               transData[i][3] = transList.get(i).getMiddleName();
+               transData[i][4] = transList.get(i).getCompanyName();
+               transData[i][5] = transList.get(i).isMember();
+               transData[i][6] = ""; // Dapat purchased meds JButton ito
+               transData[i][7] = ""; // Dapat free memds JButton ito
+               transData[i][8] = transList.get(i).getGrandTotal();
+          }
+
+          theTableForGUI = new JTable();
+          theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 15));
+
+          theTableForGUI.setModel(new DefaultTableModel(transData, infoOnTransactionTable)
+              {
+                  @Override
+                  public boolean isCellEditable(int rowIndex, int mColIndex)
+                  {
+                      return false;
+                  }
+              }
+          );
+          
+          DefaultTableCellRenderer centerAlign = new DefaultTableCellRenderer();
+          centerAlign.setHorizontalAlignment(JLabel.CENTER);
+          centerAlign.setVerticalAlignment(JLabel.CENTER);
+          for (int i= 0; i < infoOnTransactionTable.length; i++ )
+          {
+              theTableForGUI.getColumnModel().getColumn(i).setCellRenderer(centerAlign);
+          }
+          theTableForGUI.setFont(new Font("Calibri", Font.PLAIN , 17));
+          theTableForGUI.setRowHeight(23);
+          
+          theScrollPaneForGUI.setViewportView(theTableForGUI);
      }
 }
 

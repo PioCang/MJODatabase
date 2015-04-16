@@ -1,9 +1,14 @@
 package mjodatabase;
 
-public class AddTransactionGUI extends javax.swing.JFrame
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+public class AddTransactionGUI extends javax.swing.JDialog
 {
-    public AddTransactionGUI()
+    public AddTransactionGUI(MJOBranch mjo)
     {
+         this.mjo = mjo;
 	 initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -33,7 +38,9 @@ public class AddTransactionGUI extends javax.swing.JFrame
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(440, 460));
         setPreferredSize(new java.awt.Dimension(440, 460));
@@ -296,48 +303,22 @@ public class AddTransactionGUI extends javax.swing.JFrame
     private void grandTotalTextFieldActionPerformed(java.awt.event.ActionEvent evt)                                                    
     {                                                        
         // TODO add your handling code here:
-    }                                                   
-
-    public static void main(String args[])
+    }            
+    
+    public void showWindow()
     {
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-	 try
-	 {
-	     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-	     {
-		  if ("Windows".equals(info.getName()))
-		  {
-		      javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		      break;
-		  }
-	     }
-	 }
-	 catch (ClassNotFoundException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (InstantiationException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (IllegalAccessException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-	 catch (javax.swing.UnsupportedLookAndFeelException ex)
-	 {
-	     java.util.logging.Logger.getLogger(AddTransactionGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	 }
-        //</editor-fold>
+          // Determine the new location of the window
+          int w = this.getPreferredSize().width;
+          int h = this.getPreferredSize().height;
+          int x = (dim.width-w)/2;
+          int y = (dim.height-h)/2;
 
-	 /* Create and display the form */
-	 java.awt.EventQueue.invokeLater(new Runnable()
-	 {
-	     public void run()
-	     {
-		  new AddTransactionGUI().setVisible(true);
-	     }
-	 });
+          // Move the window
+          this.setLocation(x, y);
+         
+         this.setVisible(true);
     }
 
     // Variables declaration - do not modify                     
@@ -362,5 +343,6 @@ public class AddTransactionGUI extends javax.swing.JFrame
     private javax.swing.JTextField midNameTextField;
     private javax.swing.JLabel surNameLabel;
     private javax.swing.JTextField surNameTextField;
+    private MJOBranch mjo;
     // End of variables declaration                   
 }

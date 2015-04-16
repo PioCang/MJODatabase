@@ -297,7 +297,7 @@ public class TransactionTableTest
           assertTrue(!mjo.getTransactionList().get(0).getPurchasedMedicines().isEmpty());
           assertTrue(!mjo.getTransactionList().get(0).getFreeMedicines().isEmpty());
           
-          StorageOperations.encodeTransaction(mjo.getTransactionList());
+          StorageOperations.encodeTransactions(mjo.getTransactionList());
           MJOBranch ano = new MJOBranch();
           ano.setTransactionList(StorageOperations.retrieveTransactions());
           assertTrue(mjo.getTransactionList().equals(ano.getTransactionList()));

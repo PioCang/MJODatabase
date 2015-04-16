@@ -78,7 +78,7 @@ public class StorageOperations
      }
      
      
-     public static void encodeTransaction(List<Transaction> transactionList)
+     public static void encodeTransactions(List<Transaction> transactionList)
      {
           try
           (
@@ -86,6 +86,7 @@ public class StorageOperations
                ObjectOutputStream oos = new ObjectOutputStream(fos);
           )
           {
+               oos.writeObject(new Date());
                oos.writeInt(transactionList.size());
                for (int i = 0; i < transactionList.size(); i++)
                {
@@ -104,29 +105,35 @@ public class StorageOperations
      public static List<Transaction> retrieveTransactions()
      {
           ArrayList<Transaction> transactionList = new ArrayList<>();
-          try
-          (
-               FileInputStream fis = new FileInputStream(transFile);
-               ObjectInputStream ois = new ObjectInputStream(fis);
-          )
+          MJOGUI.currentDate = new Date();
+          
+          if (new File(transFile).exists())
           {
-               int n = ois.readInt();
-               for (int i = 0; i < n; i++)
-               {
-                    transactionList.add((Transaction) ois.readObject());
+               try
+               (
+                    FileInputStream fis = new FileInputStream(transFile);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+               )
+               { 
+                    MJOGUI.currentDate = (Date) ois.readObject();
+                    int n = ois.readInt();
+                    for (int i = 0; i < n; i++)
+                    {
+                         transactionList.add((Transaction) ois.readObject());
+                    }
+                    ois.close();
+                    fis.close();
                }
-               ois.close();
-               fis.close();
-          }
-          catch(IOException ex)
-          {
-               System.err.println("Cannot import medicine files.");
-               ex.printStackTrace();
-          }
-          catch(ClassNotFoundException e)
-          {
-               System.err.println("Cannot typecast to Medicine class.");
-               e.printStackTrace();
+               catch(IOException ex)
+               {
+                    System.err.println("Cannot import transaction files.");
+                    ex.printStackTrace();
+               }
+               catch(ClassNotFoundException e)
+               {
+                    System.err.println("Cannot typecast to Transaction class.");
+                    e.printStackTrace();
+               }
           }
 
           return transactionList;

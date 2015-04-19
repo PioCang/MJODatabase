@@ -34,7 +34,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(425, 410));
         setPreferredSize(new java.awt.Dimension(425, 410));
@@ -142,6 +143,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         isMemButtonGrp.add(memberNoRadioB);
         memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         memberNoRadioB.setText("No");
+        memberNoRadioB.setSelected(true);
         memberNoRadioB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)

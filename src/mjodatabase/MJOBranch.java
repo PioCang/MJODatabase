@@ -3,7 +3,6 @@ package mjodatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.UIManager;
 
@@ -20,6 +19,7 @@ public class MJOBranch
      public static TransactionCreatorGUI transactionInitializer;
      public static TransactionItemListBuilderGUI listItemBuilder;
      public static TransactionItemCreatorGUI itemSelector;
+     public static TransactionItemListGUI itemViewer;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -49,6 +49,7 @@ public class MJOBranch
           transactionInitializer = new TransactionCreatorGUI(mjo);
           listItemBuilder = new TransactionItemListBuilderGUI();
           itemSelector = new TransactionItemCreatorGUI();
+          itemViewer = new TransactionItemListGUI();
           
           
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);

@@ -253,7 +253,15 @@ public class MasterGUI extends javax.swing.JFrame {
               @Override
               public void actionPerformed(ActionEvent e)
               {
-                   System.out.println("purchased");
+                   int row = theTableForGUI.getSelectedRow();
+                   GregorianCalendar cal = mjo.getTransactionList().get(row).getDate();
+                   String temp = cal.get(Calendar.DAY_OF_MONTH) + " " +
+                      cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)
+                      + " " + cal.get(Calendar.YEAR);
+                   MJOBranch.itemViewer.setTitle("Purchased Medicines for " + mjo.getTransactionList().get(row).getLastName() +
+                         ", " + mjo.getTransactionList().get(row).getFirstName() +
+                         " on " + temp);
+                   MJOBranch.itemViewer.updateAndShowTable(mjo.getTransactionList().get(row).getPurchasedMedicines());
               }
          };
          
@@ -262,7 +270,15 @@ public class MasterGUI extends javax.swing.JFrame {
               @Override
               public void actionPerformed(ActionEvent e)
               {
-                   System.out.println("free");
+                   int row = theTableForGUI.getSelectedRow();
+                   GregorianCalendar cal = mjo.getTransactionList().get(row).getDate();
+                   String temp = cal.get(Calendar.DAY_OF_MONTH) + " " +
+                      cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)
+                      + " " + cal.get(Calendar.YEAR);
+                   MJOBranch.itemViewer.setTitle("Free Medicines for " + mjo.getTransactionList().get(row).getLastName() +
+                         ", " + mjo.getTransactionList().get(row).getFirstName() +
+                         " on " + temp);
+                   MJOBranch.itemViewer.updateAndShowTable(mjo.getTransactionList().get(row).getFreeMedicines());
               }
          };
         

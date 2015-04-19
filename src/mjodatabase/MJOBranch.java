@@ -48,7 +48,7 @@ public class MJOBranch
           medicineInitializer = new MedicineCreatorGUI(mjo);
           transactionInitializer = new TransactionCreatorGUI(mjo);
           listItemBuilder = new TransactionItemListBuilderGUI();
-          itemSelector = new TransactionItemCreatorGUI();
+          itemSelector = new TransactionItemCreatorGUI(mjo);
           itemViewer = new TransactionItemListGUI();
           
           
@@ -214,11 +214,11 @@ public class MJOBranch
           }
      }
 
-     public void revealInventory()
+     public static void revealInventory(List<Medicine> inventory)
      {
-          for (int i = 0; i < this.inventory.size(); i++)
+          for (int i = 0; i < inventory.size(); i++)
           {
-               this.inventory.get(i).printContents();
+               inventory.get(i).printContents();
           }
      }
      
@@ -249,8 +249,19 @@ public class MJOBranch
      
      
      
-     
-     
+     public List<Medicine> getUniqueMedicines()
+     {
+          ArrayList<Medicine> uniqueMeds = new ArrayList<>(1);
+          for (int i = 0 ; i < this.inventory.size(); i++)
+          {
+               if (uniqueMeds.isEmpty() || !this.inventory.get(i).sharesNameWith(uniqueMeds.get(uniqueMeds.size() -1)))
+               {
+                    uniqueMeds.add(this.inventory.get(i));
+               }
+          }
+          
+          return uniqueMeds;
+     }
 }
 
 

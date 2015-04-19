@@ -364,12 +364,12 @@ layout.setHorizontalGroup(
                          (GregorianCalendar) delDateClooser.getSelectedDate().clone(),
                          Integer.parseInt(initQuanTextField.getText()),
                          Double.parseDouble(pppTextField.getText()));
-               
+
                MJOBranch.addMedicineToList(mjo.getInventory(), med);
                StorageOperations.encodeMedicines(mjo.getInventory());
                MJOBranch.mainGUI.updateMedicineTable(mjo.getInventory());
          }
-	 catch(Exception e)
+	 catch(IllegalArgumentException e)
          {
               JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
               return;

@@ -3,11 +3,16 @@ package mjodatabase;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
+import javax.swing.JComboBox;
 
 public class TransactionItemCreatorGUI extends javax.swing.JDialog
 {
-    public TransactionItemCreatorGUI()
+    private MJOBranch mjo;
+    private List<Medicine> uniqueMeds;
+    public TransactionItemCreatorGUI(MJOBranch mjo)
     {
+         this.mjo = mjo;
 	 initComponents();
     }
 
@@ -160,6 +165,13 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
     
     public void showWindow()
     {
+         medicineComboBox.removeAllItems();
+         uniqueMeds = mjo.getUniqueMedicines();
+         for (Medicine med : uniqueMeds)
+         {
+              medicineComboBox.addItem(med.getGenericName() + " - " + med.getBrandName());
+         }
+         
          Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
           // Determine the new location of the window

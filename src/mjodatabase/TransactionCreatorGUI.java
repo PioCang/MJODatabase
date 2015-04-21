@@ -3,6 +3,13 @@ package mjodatabase;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.ButtonGroup;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class TransactionCreatorGUI extends javax.swing.JDialog
 {
@@ -10,6 +17,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
     {
          this.mjo = mjo;
 	 initComponents();
+         compNameTextField1.setText(" ");
+         addTransAcceptButton.setEnabled(false);
     }
     @SuppressWarnings("unchecked")
     private void initComponents()
@@ -33,6 +42,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         addFreeMedButton = new javax.swing.JButton();
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
+        yesOrNoButtonGroup = new ButtonGroup();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -84,6 +94,20 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(firstNameTextField);
         firstNameTextField.setBounds(97, 90, 313, 26);
+        firstNameTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "First Name should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
 
         midNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         midNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -95,6 +119,20 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(midNameTextField);
         midNameTextField.setBounds(111, 130, 299, 26);
+        midNameTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "Middle Name should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
 
         surNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -106,6 +144,20 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(surNameTextField);
         surNameTextField.setBounds(83, 50, 327, 26);
+        surNameTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "Surname should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
 
         surNameLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         surNameLabel.setText("Surname:");
@@ -139,11 +191,11 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(memberYesRadioB);
         memberYesRadioB.setBounds(180, 220, 51, 29);
+        yesOrNoButtonGroup.add(memberYesRadioB);
 
         isMemButtonGrp.add(memberNoRadioB);
         memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         memberNoRadioB.setText("No");
-        memberNoRadioB.setSelected(true);
         memberNoRadioB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -153,6 +205,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(memberNoRadioB);
         memberNoRadioB.setBounds(300, 220, 45, 29);
+        yesOrNoButtonGroup.add(memberNoRadioB);
+        memberNoRadioB.setSelected(true);
 
         grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         grandTotalLabel.setText("GRAND TOTAL: PHP");
@@ -198,13 +252,54 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(compNameTextField1);
         compNameTextField1.setBounds(134, 170, 276, 26);
+        compNameTextField1.addFocusListener(new FocusListener()
+        {
+
+             @Override
+             public void focusGained(FocusEvent e)
+             {
+                  if (compNameTextField1.getText().equals(" "))
+                  {
+                       compNameTextField1.setText("");
+                  }
+             }
+
+             @Override
+             public void focusLost(FocusEvent e)
+             {
+             }
+        });
+        compNameTextField1.setInputVerifier(new InputVerifier()
+        {
+
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       compNameTextField1.setText(" ");
+                  }
+                  return true;
+             }
+        });
+        
 
         pack();
     }// </editor-fold>                               
 
     private void addTransAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)                                                     
     {                                                         
-
+         try
+         {
+              
+         }
+         catch(Exception e)
+         {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
+              return;
+         }
+         this.dispose();
     }                                                    
 
     private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt)                                                   
@@ -234,12 +329,12 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
 
     private void addMedPurButtonActionPerformed(java.awt.event.ActionEvent evt)                                                
     {                                                    
-        MJOBranch.listItemBuilder.showWindow();
+        MJOBranch.purchasedItemsBuilder.showWindow();
     }                                               
 
     private void addFreeMedButtonActionPerformed(java.awt.event.ActionEvent evt)                                                 
     {                                                     
-        MJOBranch.listItemBuilder.showWindow();
+        MJOBranch.freeItemsBuilder.showWindow();
     }                                                
 
     private void compNameTextField1ActionPerformed(java.awt.event.ActionEvent evt)                                                   
@@ -283,6 +378,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
     private javax.swing.JLabel isMemLabel1;
     private javax.swing.JRadioButton memberNoRadioB;
     private javax.swing.JRadioButton memberYesRadioB;
+    private javax.swing.ButtonGroup yesOrNoButtonGroup;
     private javax.swing.JLabel midNameLabel;
     private javax.swing.JTextField midNameTextField;
     private javax.swing.JLabel surNameLabel;

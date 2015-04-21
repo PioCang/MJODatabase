@@ -17,9 +17,10 @@ public class MJOBranch
      public static MasterGUI mainGUI;
      public static MedicineCreatorGUI medicineInitializer;
      public static TransactionCreatorGUI transactionInitializer;
-     public static TransactionItemListBuilderGUI listItemBuilder;
+     public static TransactionItemListBuilderGUI freeItemsBuilder;
+     public static TransactionItemListBuilderGUI purchasedItemsBuilder;
      public static TransactionItemCreatorGUI itemSelector;
-     public static TransactionItemListGUI itemViewer;
+     public static TransactionItemListViewerGUI itemViewer;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -47,9 +48,10 @@ public class MJOBranch
           MJOBranch mjo = new MJOBranch();
           medicineInitializer = new MedicineCreatorGUI(mjo);
           transactionInitializer = new TransactionCreatorGUI(mjo);
-          listItemBuilder = new TransactionItemListBuilderGUI();
+          freeItemsBuilder = new TransactionItemListBuilderGUI(true);
+          purchasedItemsBuilder = new TransactionItemListBuilderGUI(false);
           itemSelector = new TransactionItemCreatorGUI(mjo);
-          itemViewer = new TransactionItemListGUI();
+          itemViewer = new TransactionItemListViewerGUI();
           
           
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);

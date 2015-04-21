@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 
-public class TransactionItemListGUI extends JDialog
+public class TransactionItemListViewerGUI extends JDialog
 {
      private JScrollPane scrollPaneForItems;
      private JTable tableForItems;
@@ -27,7 +27,7 @@ public class TransactionItemListGUI extends JDialog
      private final String[] tableHeaders = {"Generic Name", "Brand Name",
           "Doctor's Name", "Quantity", "Price Per Piece", "Subtotal"};
      
-     public TransactionItemListGUI()
+     public TransactionItemListViewerGUI()
      {
           init();
      }

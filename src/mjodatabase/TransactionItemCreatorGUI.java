@@ -3,17 +3,27 @@ package mjodatabase;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.JComboBox;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class TransactionItemCreatorGUI extends javax.swing.JDialog
 {
     private MJOBranch mjo;
     private List<Medicine> uniqueMeds;
+    private boolean isThisItemFree;
     public TransactionItemCreatorGUI(MJOBranch mjo)
     {
          this.mjo = mjo;
 	 initComponents();
+         clearFields();
     }
 
     @SuppressWarnings("unchecked")
@@ -22,7 +32,7 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
     {
 
         subtotalTextField = new javax.swing.JTextField();
-        brandNameTextField = new javax.swing.JTextField();
+        pppTextField = new javax.swing.JTextField();
         initQuanTextField = new javax.swing.JTextField();
         prescribingDoctorTextField = new javax.swing.JTextField();
         prescribingDoctorLabel = new javax.swing.JLabel();
@@ -54,17 +64,17 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         getContentPane().add(subtotalTextField);
         subtotalTextField.setBounds(116, 215, 290, 26);
 
-        brandNameTextField.setEditable(false);
-        brandNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        brandNameTextField.addActionListener(new java.awt.event.ActionListener()
+        pppTextField.setEditable(false);
+        pppTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pppTextField.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 brandNameTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(brandNameTextField);
-        brandNameTextField.setBounds(160, 127, 245, 26);
+        getContentPane().add(pppTextField);
+        pppTextField.setBounds(160, 127, 245, 26);
 
         initQuanTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         initQuanTextField.addActionListener(new java.awt.event.ActionListener()
@@ -76,6 +86,41 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(initQuanTextField);
         initQuanTextField.setBounds(144, 171, 262, 26);
+        initQuanTextField.setInputVerifier(new InputVerifier()
+        {
+
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField texf = (JTextField) input;
+                  try
+                  {
+                       int quantity = Integer.parseInt(initQuanTextField.getText());
+                  }
+                  catch(Exception e)
+                  {
+                       JOptionPane.showMessageDialog(null, "Initial quantity is not a number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  
+                  subtotalTextField.setText(Double.toString(Double.parseDouble(pppTextField.getText())* Integer.parseInt(initQuanTextField.getText())));
+                  return true;
+             }
+        });
+        initQuanTextField.addFocusListener(new FocusListener()
+        {
+
+             @Override
+             public void focusGained(FocusEvent e)
+             {
+                  addMedAcceptButton.setEnabled(true);
+             }
+
+             @Override
+             public void focusLost(FocusEvent e)
+             {
+             }
+        });
 
         prescribingDoctorTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         prescribingDoctorTextField.addActionListener(new java.awt.event.ActionListener()
@@ -87,6 +132,37 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         });
         getContentPane().add(prescribingDoctorTextField);
         prescribingDoctorTextField.setBounds(150, 83, 256, 26);
+        prescribingDoctorTextField.addFocusListener(new FocusListener()
+        {
+
+             @Override
+             public void focusGained(FocusEvent e)
+             {
+                  if (prescribingDoctorTextField.getText().equals(" "))
+                  {
+                       prescribingDoctorTextField.setText("");
+                  }
+             }
+
+             @Override
+             public void focusLost(FocusEvent e)
+             {
+             }
+        });
+        prescribingDoctorTextField.setInputVerifier(new InputVerifier()
+        {
+
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       prescribingDoctorTextField.setText(" ");
+                  }
+                  return true;
+             }
+        });
 
         prescribingDoctorLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         prescribingDoctorLabel.setText("Prescribing Doctor:");
@@ -111,6 +187,25 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         medicineComboBox.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         getContentPane().add(medicineComboBox);
         medicineComboBox.setBounds(81, 46, 325, 26);
+        medicineComboBox.addItemListener(new ItemListener()
+        {
+
+             @Override
+             public void itemStateChanged(ItemEvent e)
+             {
+                  int index = medicineComboBox.getSelectedIndex();
+                  if (index >= 0)
+                  {
+                     Medicine med = mjo.getUniqueMedicines().get(index);
+                     pppTextField.setText(Double.toString(med.getPricePerPiece()));
+                     subtotalTextField.setText(Double.toString(med.getPricePerPiece() * Integer.parseInt(initQuanTextField.getText())));
+                  }
+                  else
+                  {
+                     pppTextField.setText("0.00");
+                  }
+             }
+        });
 
         medicineLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         medicineLabel.setText("Medicine:");
@@ -158,19 +253,55 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
     }                                                          
 
     private void addMedAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)                                                   
-    {                                                       
-
+    {    
+         TransactionItem item = null;
+         try
+         {
+              Medicine med = mjo.getUniqueMedicines().get(medicineComboBox.getSelectedIndex());
+              item = new TransactionItem(med, prescribingDoctorTextField.getText(), Integer.parseInt(initQuanTextField.getText()));  
+         }
+	 catch(IllegalArgumentException e)
+         {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
+              return;
+         }
+         
+         if (isThisItemFree)
+         {
+              MJOBranch.freeItemsBuilder.getListOfItems().add(item);
+              MJOBranch.freeItemsBuilder.updateTable();
+         }
+         else
+         {
+              MJOBranch.purchasedItemsBuilder.getListOfItems().add(item);
+              MJOBranch.purchasedItemsBuilder.updateTable();
+         }
+         
+         this.dispose();
+         clearFields();
     }                                                  
 
     
-    public void showWindow()
+    public void clearFields()
     {
+         medicineComboBox.removeAllItems();
+         prescribingDoctorTextField.setText(" ");
+         pppTextField.setText("0.00");
+         initQuanTextField.setText("0");
+         subtotalTextField.setText("");
+         addMedAcceptButton.setEnabled(false);
+    }
+    
+    public void showWindow(boolean isFree)
+    {
+         isThisItemFree = isFree;
          medicineComboBox.removeAllItems();
          uniqueMeds = mjo.getUniqueMedicines();
          for (Medicine med : uniqueMeds)
          {
               medicineComboBox.addItem(med.getGenericName() + " - " + med.getBrandName());
          }
+         medicineComboBox.setSelectedIndex(-1);
          
          Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -188,7 +319,7 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
     
     // Variables declaration - do not modify                     
     private javax.swing.JButton addMedAcceptButton;
-    private javax.swing.JTextField brandNameTextField;
+    private javax.swing.JTextField pppTextField;
     private javax.swing.JTextField initQuanTextField;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JComboBox medicineComboBox;

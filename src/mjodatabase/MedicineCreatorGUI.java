@@ -4,10 +4,15 @@ import datechooser.model.multiple.MultyModelBehavior;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 public class MedicineCreatorGUI extends javax.swing.JDialog
 {
     public MedicineCreatorGUI(MJOBranch mjo)
@@ -92,6 +97,20 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
                 genericNameTextFieldActionPerformed(evt);
             }
         });
+        genericNameTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "Generic name should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
 
         initQuanTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         initQuanTextField.addActionListener(new java.awt.event.ActionListener()
@@ -100,6 +119,25 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
             {
                 initQuanTextFieldActionPerformed(evt);
             }
+        });
+        initQuanTextField.setInputVerifier(new InputVerifier()
+        {
+
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField texf = (JTextField) input;
+                  try
+                  {
+                       int quantity = Integer.parseInt(initQuanTextField.getText());
+                  }
+                  catch(Exception e)
+                  {
+                       JOptionPane.showMessageDialog(null, "Initial quantity is not a number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
         });
 
         lotNumTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -110,6 +148,20 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
                 lotNumTextFieldActionPerformed(evt);
             }
         });
+        lotNumTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "Lot # should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
 
         pppTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         pppTextField.addActionListener(new java.awt.event.ActionListener()
@@ -119,6 +171,39 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
                 pppTextFieldActionPerformed(evt);
             }
         });
+        pppTextField.setInputVerifier(new InputVerifier()
+        {
+
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField texf = (JTextField) input;
+                  try
+                  {
+                       double quantity = Double.parseDouble(initQuanTextField.getText());
+                  }
+                  catch(Exception e)
+                  {
+                       JOptionPane.showMessageDialog(null, "Price per piece is not a number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
+        });
+        pppTextField.addFocusListener(new FocusListener()
+        {
+
+             @Override
+             public void focusGained(FocusEvent e)
+             {
+                  addMedAcceptButton.setEnabled(true);
+             }
+
+             @Override
+             public void focusLost(FocusEvent e)
+             {
+             }
+        });
 
         brandNameTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         brandNameTextField.addActionListener(new java.awt.event.ActionListener()
@@ -127,6 +212,20 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
             {
                 brandNameTextFieldActionPerformed(evt);
             }
+        });
+        brandNameTextField.setInputVerifier(new InputVerifier()
+        {
+             @Override
+             public boolean verify(JComponent input)
+             {
+                  JTextField textf = (JTextField) input;
+                  if (textf.getText().isEmpty())
+                  {
+                       JOptionPane.showMessageDialog(null, "Brand name should not be blank.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       return false;
+                  }
+                  return true;
+             }
         });
 
         delDateClooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
@@ -173,6 +272,7 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
     delDateClooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
     delDateClooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
     delDateClooser.setCalendarPreferredSize(new Dimension(350, 300));
+    delDateClooser.setMinDate(new GregorianCalendar());
 
     expDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
@@ -218,6 +318,7 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
 expDateChooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
 expDateChooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
 expDateChooser.setCalendarPreferredSize(new Dimension(350, 300));
+expDateChooser.setMinDate(new GregorianCalendar());
 
 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 getContentPane().setLayout(layout);
@@ -418,6 +519,7 @@ layout.setHorizontalGroup(
           // Move the window
           this.setLocation(x, y);
          
+          addMedAcceptButton.setEnabled(false);
          this.setVisible(true);
     }
     

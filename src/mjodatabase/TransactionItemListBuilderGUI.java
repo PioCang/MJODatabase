@@ -74,6 +74,11 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     
     public void updateTable()
      {
+          if (getListOfItems().size() > 0)
+          {
+               removeItemButton.setEnabled(true);
+          }
+          
           itemObjects = new Object[getListOfItems().size()][tableHeaders.length];
           double total = 0;
 
@@ -153,7 +158,11 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     {
          this.getListOfItems().remove(anItem);
     }
-    
+
+    private void clearFields()
+    {
+         
+    }
     
     public void showWindow()
     {
@@ -167,6 +176,7 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
 
           // Move the window
           this.setLocation(x, y);
+          removeItemButton.setEnabled(false);
          this.setVisible(true);
     }
 

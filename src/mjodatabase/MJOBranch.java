@@ -3,6 +3,7 @@ package mjodatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.UIManager;
 
@@ -53,6 +54,7 @@ public class MJOBranch
           itemSelector = new TransactionItemCreatorGUI(mjo);
           itemViewer = new TransactionItemListViewerGUI();
           
+          mjo.setInventory(StorageOperations.retrieveMedicines());
           
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
           GregorianCalendar del = new GregorianCalendar(1932, 0, 1);
@@ -73,7 +75,7 @@ public class MJOBranch
           }
           StorageOperations.encodeMedicines(mjo.getInventory());*/
           
-          mjo.setInventory(StorageOperations.retrieveMedicines());
+          
           mjo.setTransactionList(StorageOperations.retrieveTransactions());
           
           mainGUI = new MasterGUI(mjo);
@@ -197,7 +199,7 @@ public class MJOBranch
       * (in that exact order) to obtain a sorted inventory in the reverse order.
       * @param inventory
       */
-     public static void sort(List<Medicine> inventory)
+     private static void sort(List<Medicine> inventory)
      {
           Medicine[] medsAsArray = new Medicine[inventory.size()];
           for (int i = 0; i < inventory.size(); i++)
@@ -223,12 +225,6 @@ public class MJOBranch
                inventory.get(i).printContents();
           }
      }
-     
-     
-     
-     
-     
-     
      
      
      
@@ -264,7 +260,22 @@ public class MJOBranch
           
           return uniqueMeds;
      }
+     
+     public int getAvailableQuantitiesOf(Medicine med)
+     {
+          int available = 0;
+          for (Medicine aMed : this.inventory)
+          {
+               if (aMed.sharesNameWith(med))
+               {
+                    available += aMed.getCurrentQuantity();
+               }
+          }
+          return available;
+     }
 }
+
+     
 
 
 

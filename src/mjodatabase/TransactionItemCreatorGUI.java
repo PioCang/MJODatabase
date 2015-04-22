@@ -7,7 +7,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -44,6 +43,7 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         jLabel8 = new javax.swing.JLabel();
         addMedAcceptButton = new javax.swing.JButton();
 
+         setTitle("Add an item to the shopping list.");
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setMinimumSize(new java.awt.Dimension(425, 325));
@@ -88,7 +88,6 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         initQuanTextField.setBounds(144, 171, 262, 26);
         initQuanTextField.setInputVerifier(new InputVerifier()
         {
-
              @Override
              public boolean verify(JComponent input)
              {
@@ -96,10 +95,15 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
                   try
                   {
                        int quantity = Integer.parseInt(initQuanTextField.getText());
+                       Medicine med = mjo.getUniqueMedicines().get(medicineComboBox.getSelectedIndex());
+                       if (quantity > mjo.getAvailableQuantitiesOf(med))
+                       {
+                            JOptionPane.showMessageDialog(null, "Order quantity is greater than the stock available.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       }
                   }
                   catch(Exception e)
                   {
-                       JOptionPane.showMessageDialog(null, "Initial quantity is not a number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       JOptionPane.showMessageDialog(null, "Order quantity should be a positive whole number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
                        return false;
                   }
                   
@@ -189,7 +193,6 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
         medicineComboBox.setBounds(81, 46, 325, 26);
         medicineComboBox.addItemListener(new ItemListener()
         {
-
              @Override
              public void itemStateChanged(ItemEvent e)
              {
@@ -299,7 +302,8 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
          uniqueMeds = mjo.getUniqueMedicines();
          for (Medicine med : uniqueMeds)
          {
-              medicineComboBox.addItem(med.getGenericName() + " - " + med.getBrandName());
+              medicineComboBox.addItem(med.getGenericName() + " - " + med.getBrandName()
+              + " (" + mjo.getAvailableQuantitiesOf(med) + ")");
          }
          medicineComboBox.setSelectedIndex(-1);
          

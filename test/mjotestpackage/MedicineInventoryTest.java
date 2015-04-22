@@ -389,6 +389,40 @@ public class MedicineInventoryTest
                benchmark.add(med5);
                
                assertTrue(benchmark.equals(mjo.getUniqueMedicines()));
+               StorageOperations.encodeMedicines(mjo.getInventory());
+          }
+          catch(IllegalArgumentException e)
+          {
+               fail("Not expected to catch any exceptions here.");
+          }
+     }
+     
+     @Test
+     public void checkIfAvailableQuantityIsCorrect()
+     {
+          GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
+          GregorianCalendar del = new GregorianCalendar(1932, 0, 1);
+          Medicine med1 = null, med2 = null, med3 = null, med4 = null, med5 = null;
+
+          MJOBranch mjo = new MJOBranch();
+
+          try
+          {
+               med5 = new Medicine("Zinc", "Enervon", "09077", exp, del, 100, 12.0);
+               med1 = new Medicine("Paracetamol", "Biogesic", "1", exp, del, 50, 2.5);
+               med2 = new Medicine("Paracetamol", "Biogesic", "2", exp, del, 25, 2.5);
+               med3 = new Medicine("Paracetamol", "Biogesic", "3", exp, del, 25, 2.5);
+               med4 = new Medicine("Ibuprofen", "Advil", "09077", exp, del, 1000, 1.0);
+
+               MJOBranch.addMedicineToList(mjo.getInventory(), med1);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med2);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med3);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med4);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med5);
+
+               assertEquals(100, mjo.getAvailableQuantitiesOf(med5));
+               assertEquals(1000, mjo.getAvailableQuantitiesOf(med4));
+               assertEquals(100, mjo.getAvailableQuantitiesOf(med1));
           }
           catch(IllegalArgumentException e)
           {

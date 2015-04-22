@@ -24,7 +24,7 @@ public class TransactionItem implements Serializable
           
           if (quantity < 1)
           {
-               throw new IllegalArgumentException("Order quantity should be a positive number.");
+               throw new IllegalArgumentException("Order quantity should be a positive whole number.");
           }
           this.quantity = quantity;   
           this.pricePerPiece = med.getPricePerPiece();

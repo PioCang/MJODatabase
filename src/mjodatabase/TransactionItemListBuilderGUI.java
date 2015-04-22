@@ -6,6 +6,8 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -31,15 +33,14 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents()
     {
-
         addItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        setMinimumSize(new java.awt.Dimension(660, 520));
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(660, 500));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         getContentPane().setLayout(null);
         
@@ -49,7 +50,7 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
                          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
        getContentPane().add(scrollPaneForItems);
-       scrollPaneForItems.setBounds(0, 0, 660, 450);
+       scrollPaneForItems.setBounds(0, 0, 800, 500);
           
 
         addItemButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -62,12 +63,24 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
             }
         });
         getContentPane().add(addItemButton);
-        addItemButton.setBounds(110, 450, 153, 27);
+        addItemButton.setBounds(114, 525, 153, 27);
 
         removeItemButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         removeItemButton.setText("Remove Item");
         getContentPane().add(removeItemButton);
-        removeItemButton.setBounds(405, 451, 153, 27);
+        removeItemButton.setBounds(535, 525, 153, 27);
+        removeItemButton.addActionListener(new ActionListener()
+        {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+             }
+        });
+        
+        subtotalLabel = new JLabel("P 0.00");
+        subtotalLabel.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        getContentPane().add(subtotalLabel);
+        subtotalLabel.setBounds(350, 525, 180, 30);
 
         pack();
     }// </editor-fold>            

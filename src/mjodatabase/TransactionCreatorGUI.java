@@ -44,6 +44,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         compNameTextField1 = new javax.swing.JTextField();
         yesOrNoButtonGroup = new ButtonGroup();
 
+         setTitle("Create a new transaction.");
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

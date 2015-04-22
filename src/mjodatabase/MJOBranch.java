@@ -22,6 +22,7 @@ public class MJOBranch
      public static TransactionItemListBuilderGUI purchasedItemsBuilder;
      public static TransactionItemCreatorGUI itemSelector;
      public static TransactionItemListViewerGUI itemViewer;
+     public static SearchResultsGUI searchResultsViewer;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -53,6 +54,7 @@ public class MJOBranch
           purchasedItemsBuilder = new TransactionItemListBuilderGUI(false);
           itemSelector = new TransactionItemCreatorGUI(mjo);
           itemViewer = new TransactionItemListViewerGUI();
+          searchResultsViewer = new SearchResultsGUI();
           
           mjo.setInventory(StorageOperations.retrieveMedicines());
           

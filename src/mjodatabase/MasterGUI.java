@@ -67,6 +67,7 @@ public class MasterGUI extends javax.swing.JFrame {
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JTextField middleNameTextField;
     private javax.swing.JTextField yearTextField;
+    private boolean isViewingResults;
      
     
     // TRANSACTION LIST COMPONENTS
@@ -473,7 +474,7 @@ public class MasterGUI extends javax.swing.JFrame {
      }
      
      private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+          MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.getTransactionList());
     }
      
      

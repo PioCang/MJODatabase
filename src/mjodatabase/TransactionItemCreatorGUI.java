@@ -271,12 +271,31 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
          
          if (isThisItemFree)
          {
-              MJOBranch.freeItemsBuilder.getListOfItems().add(item);
-              MJOBranch.freeItemsBuilder.updateTable();
+              for (TransactionItem oldItem : MJOBranch.freeItemsBuilder.getListOfItems())
+              {
+                   if (oldItem.getBrandName().equals(item.getBrandName())
+                        && oldItem.getGenericName().equals(item.getGenericName()))
+                   {
+                        JOptionPane.showMessageDialog(this, "A transaction item already exists for this brand.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                        return;
+                   }
+              }
+               MJOBranch.freeItemsBuilder.getListOfItems().add(item);
+               MJOBranch.freeItemsBuilder.updateTable();
          }
          else
          {
+              for (TransactionItem oldItem : MJOBranch.purchasedItemsBuilder.getListOfItems())
+              {
+                   if (oldItem.getBrandName().equals(item.getBrandName())
+                        && oldItem.getGenericName().equals(item.getGenericName()))
+                   {
+                        JOptionPane.showMessageDialog(this, "A transaction item already exists for this brand.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                        return;
+                   }
+              }
               MJOBranch.purchasedItemsBuilder.getListOfItems().add(item);
+              MJOBranch.transactionInitializer.addTransAcceptButton.setEnabled(true);
               MJOBranch.purchasedItemsBuilder.updateTable();
          }
          

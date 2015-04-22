@@ -35,6 +35,27 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     {
         addItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
+        removeItemButton.addActionListener(new ActionListener()
+        {
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                  int index = tableForItems.getSelectedRow();
+                  if (index >= 0)
+                  {
+                       listOfItems.remove(index);
+                       updateTable();
+                  }
+                  if (listOfItems.isEmpty())
+                  {
+                       removeItemButton.setEnabled(false);
+                       if (!areTheItemsFree)
+                       {
+                           MJOBranch.transactionInitializer.addTransAcceptButton.setEnabled(false);
+                       }
+                  }
+             }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -165,11 +186,6 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     public void addToList(TransactionItem anItem)
     {
          this.getListOfItems().add(anItem);
-    }
-    
-    public void removeFromList(TransactionItem anItem)
-    {
-         this.getListOfItems().remove(anItem);
     }
 
     private void clearFields()

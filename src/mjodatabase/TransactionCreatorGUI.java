@@ -367,7 +367,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
     // Variables declaration - do not modify                     
     private javax.swing.JButton addFreeMedButton;
     private javax.swing.JButton addMedPurButton;
-    private javax.swing.JButton addTransAcceptButton;
+    public javax.swing.JButton addTransAcceptButton;
     private javax.swing.JLabel addTransLabel;
     private javax.swing.JLabel compNameLabel;
     private javax.swing.JTextField compNameTextField1;

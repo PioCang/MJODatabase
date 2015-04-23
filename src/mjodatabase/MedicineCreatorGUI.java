@@ -468,6 +468,7 @@ layout.setHorizontalGroup(
 
                MJOBranch.addMedicineToList(mjo.getInventory(), med);
                StorageOperations.encodeMedicines(mjo.getInventory());
+               mjo.setInventory(StorageOperations.retrieveMedicines());
                MJOBranch.mainGUI.updateMedicineTable(mjo.getInventory());
          }
 	 catch(IllegalArgumentException e)

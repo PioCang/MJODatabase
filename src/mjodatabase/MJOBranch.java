@@ -56,8 +56,8 @@ public class MJOBranch
           itemViewer = new TransactionItemListViewerGUI();
           searchResultsViewer = new SearchResultsGUI();
           
-          mjo.setInventory(StorageOperations.retrieveMedicines());
           
+          mjo.setInventory(StorageOperations.retrieveMedicines());
           /*GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
           GregorianCalendar del = new GregorianCalendar(1932, 0, 1);
           Medicine med1 = null, med2 = null, med3 = null;
@@ -77,9 +77,7 @@ public class MJOBranch
           }
           StorageOperations.encodeMedicines(mjo.getInventory());*/
           
-          
           mjo.setTransactionList(StorageOperations.retrieveTransactions());
-          
           mainGUI = new MasterGUI(mjo);
           mainGUI.showWindow();          
      }
@@ -119,8 +117,28 @@ public class MJOBranch
      
      
      
+     public void addTransactionToList(Transaction trans)
+     {
+          this.transactions.add(trans);
+     }
      
-     
+     public static void sortItems(List<TransactionItem> listOfItems)
+     {
+          TransactionItem[] itemsAsArray = new TransactionItem[listOfItems.size()];
+          for (int i = 0; i < listOfItems.size(); i++)
+          {
+               itemsAsArray[i] = listOfItems.get(i);
+          }
+
+          Arrays.sort(itemsAsArray, new ItemBrandNameComparator());
+          Arrays.sort(itemsAsArray, new ItemGenericNameComparator());
+
+          listOfItems.clear();
+          for(int i = 0; i < itemsAsArray.length; i++)
+          {
+               listOfItems.add(itemsAsArray[i]);
+          }
+     }
      
      
      

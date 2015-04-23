@@ -61,7 +61,6 @@ public class TransactionItemListViewerGUI extends JDialog
      public void updateAndShowTable(List<TransactionItem> items)
      {
           itemObjects = new Object[items.size()][tableHeaders.length];
-          double total = 0;
 
           for(int i = 0; i < items.size(); i++)
           {
@@ -71,7 +70,6 @@ public class TransactionItemListViewerGUI extends JDialog
                itemObjects[i][3] = items.get(i).getQuantity();
                itemObjects[i][4] = items.get(i).getPricePerPiece();
                itemObjects[i][5] = items.get(i).getSubtotal();
-               total += items.get(i).getSubtotal();
           }
 
           tableForItems = new JTable()
@@ -121,7 +119,7 @@ public class TransactionItemListViewerGUI extends JDialog
           tableForItems.setRowHeight(23);
           
           scrollPaneForItems.setViewportView(tableForItems);
-          subtotalLabel.setText("Total : P " + Double.toString(total));
+          subtotalLabel.setText("Total : P " + Double.toString(MJOBranch.computeGrandTotal(items)));
           
           showWindow();
      }

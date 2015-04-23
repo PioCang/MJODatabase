@@ -7,6 +7,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -91,6 +93,13 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
              @Override
              public boolean verify(JComponent input)
              {
+                  if (medicineComboBox.getSelectedIndex() < 0)
+                  {
+                      JOptionPane.showMessageDialog(null, "Please select an item to order.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                      initQuanTextField.requestFocus();
+                      return false;
+                  }
+                  
                   JTextField texf = (JTextField) input;
                   try
                   {
@@ -107,7 +116,7 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
                        return false;
                   }
                   
-                  subtotalTextField.setText(Double.toString(Double.parseDouble(pppTextField.getText())* Integer.parseInt(initQuanTextField.getText())));
+                    subtotalTextField.setText(Double.toString(Double.parseDouble(pppTextField.getText())* Integer.parseInt(initQuanTextField.getText())));
                   return true;
              }
         });
@@ -201,7 +210,12 @@ public class TransactionItemCreatorGUI extends javax.swing.JDialog
                   {
                      Medicine med = mjo.getUniqueMedicines().get(index);
                      pppTextField.setText(Double.toString(med.getPricePerPiece()));
-                     subtotalTextField.setText(Double.toString(med.getPricePerPiece() * Integer.parseInt(initQuanTextField.getText())));
+                     try
+                     {
+                         subtotalTextField.setText(Double.toString(med.getPricePerPiece() * Integer.parseInt(initQuanTextField.getText())));
+                     }
+                     catch(Exception d)
+                     {}
                   }
                   else
                   {

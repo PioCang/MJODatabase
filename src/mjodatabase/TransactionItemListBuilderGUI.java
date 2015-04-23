@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -33,6 +35,47 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents()
     {
+        this.addWindowListener(new WindowListener()
+        {
+
+             @Override
+             public void windowOpened(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowClosing(WindowEvent e)
+             {
+                  MJOBranch.transactionInitializer.grandTotalTextField.setText(
+                      Double.toString(MJOBranch.computeGrandTotal(MJOBranch.purchasedItemsBuilder.getListOfItems())));
+             }
+
+             @Override
+             public void windowClosed(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowIconified(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowDeiconified(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowActivated(WindowEvent e)
+             {
+             }
+
+             @Override
+             public void windowDeactivated(WindowEvent e)
+             {
+             }
+        });
+         
         addItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
         removeItemButton.addActionListener(new ActionListener()
@@ -56,6 +99,7 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
                   }
              }
         });
+        removeItemButton.setEnabled(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -90,16 +134,9 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
         removeItemButton.setText("Remove Item");
         getContentPane().add(removeItemButton);
         removeItemButton.setBounds(535, 525, 153, 27);
-        removeItemButton.addActionListener(new ActionListener()
-        {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
-             }
-        });
         
         subtotalLabel = new JLabel("P 0.00");
-        subtotalLabel.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        subtotalLabel.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         getContentPane().add(subtotalLabel);
         subtotalLabel.setBounds(350, 525, 180, 30);
 
@@ -174,6 +211,7 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
           tableForItems.setRowHeight(23);
           
           scrollPaneForItems.setViewportView(tableForItems);
+          subtotalLabel.setText("Total : P " + Double.toString(total));
      }
     
     
@@ -205,7 +243,6 @@ public class TransactionItemListBuilderGUI extends javax.swing.JDialog
 
           // Move the window
           this.setLocation(x, y);
-          removeItemButton.setEnabled(false);
          this.setVisible(true);
     }
 

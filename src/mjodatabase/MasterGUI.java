@@ -657,7 +657,7 @@ public class MasterGUI extends javax.swing.JFrame {
                 .addContainerGap(10, 12)
                 .addComponent(theScrollPaneForGUI))
         );
-        
+
         updateTransactionTable(mjo.getTransactionList());
     }
     

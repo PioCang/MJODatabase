@@ -3,8 +3,11 @@ package mjodatabase;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -35,14 +38,12 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         firstNameLabel = new javax.swing.JLabel();
         midNameLabel = new javax.swing.JLabel();
         compNameLabel = new javax.swing.JLabel();
-        memberYesRadioB = new javax.swing.JRadioButton();
-        memberNoRadioB = new javax.swing.JRadioButton();
+        membershipCheckBox = new javax.swing.JCheckBox("No");
         grandTotalLabel = new javax.swing.JLabel();
         addMedPurButton = new javax.swing.JButton();
         addFreeMedButton = new javax.swing.JButton();
         isMemLabel1 = new javax.swing.JLabel();
         compNameTextField1 = new javax.swing.JTextField();
-        yesOrNoButtonGroup = new ButtonGroup();
 
          setTitle("Create a new transaction.");
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -180,34 +181,25 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         getContentPane().add(compNameLabel);
         compNameLabel.setBounds(10, 170, 119, 20);
 
-        isMemButtonGrp.add(memberYesRadioB);
-        memberYesRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        memberYesRadioB.setText("Yes");
-        memberYesRadioB.addActionListener(new java.awt.event.ActionListener()
+        getContentPane().add(membershipCheckBox);
+        membershipCheckBox.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        membershipCheckBox.setBounds(180, 220, 51, 29);
+        membershipCheckBox.setSelected(false);
+        membershipCheckBox.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                memberYesRadioBActionPerformed(evt);
-            }
+             @Override
+             public void actionPerformed(ActionEvent e)
+             {
+                  if (membershipCheckBox.isSelected())
+                  {
+                       membershipCheckBox.setText("YES");
+                  }
+                  else
+                  {
+                       membershipCheckBox.setText("NO");
+                  }
+             }
         });
-        getContentPane().add(memberYesRadioB);
-        memberYesRadioB.setBounds(180, 220, 51, 29);
-        yesOrNoButtonGroup.add(memberYesRadioB);
-
-        isMemButtonGrp.add(memberNoRadioB);
-        memberNoRadioB.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        memberNoRadioB.setText("No");
-        memberNoRadioB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                memberNoRadioBActionPerformed(evt);
-            }
-        });
-        getContentPane().add(memberNoRadioB);
-        memberNoRadioB.setBounds(300, 220, 45, 29);
-        yesOrNoButtonGroup.add(memberNoRadioB);
-        memberNoRadioB.setSelected(true);
 
         grandTotalLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         grandTotalLabel.setText("GRAND TOTAL: PHP");
@@ -290,18 +282,92 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
     }// </editor-fold>                               
 
     private void addTransAcceptButtonActionPerformed(java.awt.event.ActionEvent evt)                                                     
-    {                                                         
+    {                
+         int orderQuantity;
          try
          {
-              
+              for(TransactionItem paidMed : MJOBranch.purchasedItemsBuilder.getListOfItems())
+              {
+                   orderQuantity = 0;
+                   for (TransactionItem freeMed : MJOBranch.freeItemsBuilder.getListOfItems())
+                   {
+                        if (paidMed.getGenericName().equals(freeMed.getGenericName())
+                                && paidMed.getBrandName().equals(freeMed.getBrandName()))
+                        {
+                             orderQuantity = paidMed.getQuantity() + freeMed.getQuantity();
+                             Medicine dummyMed = new Medicine(paidMed.getGenericName(),
+                                     paidMed.getBrandName(), "DEBUG", new GregorianCalendar(),
+                                     new GregorianCalendar(), orderQuantity, 1.0);
+                             
+                             for (Medicine actualMed : mjo.getUniqueMedicines())
+                             {
+                                  if (actualMed.sharesNameWith(dummyMed) &&
+                                      dummyMed.getInitialQuantity() > mjo.getAvailableQuantitiesOf(actualMed))
+                                  {
+                                       String warningMessage = "The purchased items list orders " + paidMed.getQuantity()
+                                             + " pc(s). while\nthe free items list orders " + freeMed.getQuantity()
+                                             + " pc(s).\nThis adds to a total of " + orderQuantity + " pc(s). for "
+                                             + actualMed.getGenericName() + " - " + actualMed.getBrandName()
+                                             + "\nbut the inventory shows only " + mjo.getAvailableQuantitiesOf(actualMed)
+                                             + " pc(s). available.\n\nPlease go back and adjust the order quantities.";
+                                       JOptionPane.showMessageDialog(this, warningMessage, "ERROR!", JOptionPane.WARNING_MESSAGE);
+                                       return;
+                                  }
+                             }
+                        }
+                   }
+              }
          }
          catch(Exception e)
          {
               JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
               return;
          }
+         
+         
+         try
+         {
+               MJOBranch.sortItems(MJOBranch.purchasedItemsBuilder.getListOfItems());
+               MJOBranch.sortItems(MJOBranch.freeItemsBuilder.getListOfItems());
+
+               Transaction newTrans = new Transaction(surNameTextField.getText(), firstNameTextField.getText(),
+                       midNameTextField.getText(), compNameTextField1.getText(),
+                       MJOBranch.purchasedItemsBuilder.getListOfItems(),
+                       MJOBranch.freeItemsBuilder.getListOfItems(),
+                       MJOBranch.computeGrandTotal(MJOBranch.purchasedItemsBuilder.getListOfItems()),
+                       MJOBranch.computeGrandTotal(MJOBranch.freeItemsBuilder.getListOfItems()));
+               newTrans.setMembership(membershipCheckBox.isSelected());
+
+
+               /************** TO DO **********/
+               //DEDUCT MEDICINES
+
+               mjo.addTransactionToList(newTrans);
+               StorageOperations.encodeTransactions(mjo.getTransactionList());
+               mjo.setTransactionList(StorageOperations.retrieveTransactions());
+               MJOBranch.mainGUI.updateTransactionTable(mjo.getTransactionList());
+         }
+         catch(IllegalArgumentException e)
+         {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
+              return;
+         }
+         
          this.dispose();
-    }                                                    
+         clearFields();
+    }                                               
+    
+    private void clearFields()
+    {
+         surNameTextField.setText("");
+         firstNameTextField.setText("");
+         midNameTextField.setText("");
+         membershipCheckBox.setSelected(false);
+         membershipCheckBox.setText("NO");
+         MJOBranch.purchasedItemsBuilder.getListOfItems().clear();
+         MJOBranch.freeItemsBuilder.getListOfItems().clear();
+         addTransAcceptButton.setEnabled(false);
+    }
 
     private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt)                                                   
     {                                                       
@@ -374,12 +440,10 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JLabel grandTotalLabel;
-    private javax.swing.JTextField grandTotalTextField;
+    public javax.swing.JTextField grandTotalTextField;
     private javax.swing.ButtonGroup isMemButtonGrp;
     private javax.swing.JLabel isMemLabel1;
-    private javax.swing.JRadioButton memberNoRadioB;
-    private javax.swing.JRadioButton memberYesRadioB;
-    private javax.swing.ButtonGroup yesOrNoButtonGroup;
+    private javax.swing.JCheckBox membershipCheckBox;
     private javax.swing.JLabel midNameLabel;
     private javax.swing.JTextField midNameTextField;
     private javax.swing.JLabel surNameLabel;

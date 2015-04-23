@@ -340,7 +340,32 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
 
 
                /************** TO DO **********/
-               //DEDUCT MEDICINES
+
+              for(TransactionItem transMed : MJOBranch.purchasedItemsBuilder.getListOfItems())
+              {
+                   for(Medicine actualMed : mjo.getInventory())
+                   {
+                        if (transMed.getGenericName().equals(actualMed.getGenericName())
+                            && transMed.getBrandName().equals(actualMed.getBrandName()))
+                        {
+                             mjo.makeDeductions(actualMed, transMed.getQuantity());
+                             break;
+                        }
+                   }
+              }
+              for(TransactionItem transMed : MJOBranch.freeItemsBuilder.getListOfItems())
+              {
+                   for(Medicine actualMed : mjo.getInventory())
+                   {
+                        if (transMed.getGenericName().equals(actualMed.getGenericName())
+                            && transMed.getBrandName().equals(actualMed.getBrandName()))
+                        {
+                             mjo.makeDeductions(actualMed, transMed.getQuantity());
+                             break;
+                        }
+                   }
+              }
+
 
                mjo.addTransactionToList(newTrans);
                StorageOperations.encodeTransactions(mjo.getTransactionList());

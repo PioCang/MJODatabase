@@ -339,7 +339,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                newTrans.setMembership(membershipCheckBox.isSelected());
 
 
-               /************** TO DO **********/
+              
 
               for(TransactionItem transMed : MJOBranch.purchasedItemsBuilder.getListOfItems())
               {
@@ -365,7 +365,10 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                         }
                    }
               }
-
+              
+              
+               /************** TO DO **********/
+//SAVE CHANGES TO INVENTORY HERE!!!
 
                mjo.addTransactionToList(newTrans);
                StorageOperations.encodeTransactions(mjo.getTransactionList());

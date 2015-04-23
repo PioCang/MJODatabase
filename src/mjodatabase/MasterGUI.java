@@ -16,6 +16,7 @@ import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -474,6 +475,7 @@ public class MasterGUI extends javax.swing.JFrame {
      }
      
      private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
+          JOptionPane.showMessageDialog(null, "This feature is still under development.", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
           MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.getTransactionList());
     }
      

@@ -14,11 +14,14 @@ import java.util.List;
 import java.util.Locale;
 import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -218,7 +221,8 @@ public class MasterGUI extends javax.swing.JFrame {
         yearLabel.setText("Year:");
 
         monthsComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        monthsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        monthsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"-----------", "January", "February", "March", "April", "May", "June",
+               "July", "August", "September", "October", "November", "December" }));
 
         searchButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         searchButton.setText("SEARCH");
@@ -228,7 +232,35 @@ public class MasterGUI extends javax.swing.JFrame {
             }
         });
 
+
         yearTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        yearTextField.setInputVerifier(new InputVerifier()
+        {
+              @Override
+              public boolean verify(JComponent input)
+              {
+                   String str = yearTextField.getText();
+                   try
+                   {
+                         if (str.length() != 4)
+                         {
+                              throw  new Exception("Year should be a 4-digit number.");
+                         }
+                         int year = Integer.parseInt(str);
+                         if (year < 2015)
+                         {
+                              throw new Exception("The year should be at least 2015.");
+                         }
+                   }
+                   catch(Exception e)
+                   {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR!", JOptionPane.INFORMATION_MESSAGE);
+                        return false;
+                   }
+                   
+                   return true;
+              }
+         });
         yearTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             }
@@ -475,7 +507,19 @@ public class MasterGUI extends javax.swing.JFrame {
      }
      
      private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-          JOptionPane.showMessageDialog(null, "This feature is still under development.", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
+          if (lastNameTextField.getText().isEmpty()
+               || firstNameTextField.getText().isEmpty()
+               || middleNameTextField.getText().isEmpty()
+               || yearTextField.getText().isEmpty())
+            {
+                 JOptionPane.showMessageDialog(null, "First, Middle, & Last Names should not be blank.\n"
+                         + "Supplying a month is optional but a year should be specified. ", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
+                 return;
+            }
+          
+          
+          JOptionPane.showMessageDialog(null, "This feature is still under development.\n"
+                  + "Showing full transaction list instead.", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
           MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.getTransactionList());
     }
      

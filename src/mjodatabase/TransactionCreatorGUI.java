@@ -381,6 +381,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
               return;
          }
          
+         
+         JOptionPane.showMessageDialog(this, "Changes to medicine inventory are not yet programmed to update.", "Notice!", JOptionPane.INFORMATION_MESSAGE);
          this.dispose();
          clearFields();
     }                                               

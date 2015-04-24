@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.AbstractAction;
-import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;

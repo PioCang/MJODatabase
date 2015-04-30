@@ -2,6 +2,7 @@ package mjodatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -293,9 +294,71 @@ public class MJOBranch
           }
           return available;
      }
-}
-
      
+     
+     
+     
+     public List<Transaction> searchTransactions(String fName,
+         String mName, String lName, int year, int month)
+     {
+          ArrayList<Transaction> left = new ArrayList<>(1)
+                                 ,right = new ArrayList<>(1);
+          
+          left.clear();
+          for (Transaction trans : this.getTransactionList())
+          {
+               if (trans.getFirstName().compareToIgnoreCase(fName) == 0)
+               {
+                    left.add(trans);
+               }
+          }
+          
+          right.clear();
+          for (Transaction trans : left)
+          {
+               if (trans.getMiddleName().compareToIgnoreCase(mName) == 0)
+               {
+                    right.add(trans);
+               }
+          }
+          
+          left.clear();
+          for (Transaction trans : right)
+          {
+               if (trans.getLastName().compareToIgnoreCase(lName) == 0)
+               {
+                    left.add(trans);
+               }
+          }
+          
+          right.clear();
+          for (Transaction trans : left)
+          {
+               if (trans.getDate().get(Calendar.YEAR) == year)
+               {
+                    right.add(trans);
+               }
+          }
+          
+          if (month < 0)
+          {
+               return right;
+          }
+          else
+          {
+               left.clear();
+               for (Transaction trans : right)
+               {
+                    if (trans.getDate().get(Calendar.MONTH) == month)
+                    {
+                         left.add(trans);
+                    }
+               }
+               
+               return left;
+          }
+     }
+}
 
 
 
@@ -317,15 +380,6 @@ class ItemBrandNameComparator implements Comparator<TransactionItem>
      }
 }
 
-
-class DateComparator implements Comparator<Transaction>
-{
-     @Override
-     public int compare(Transaction a, Transaction b)
-     {
-          return a.getDate().compareTo(b.getDate());
-     }
-}
 
 class MedGenericNameComparator implements Comparator<Medicine>
 {

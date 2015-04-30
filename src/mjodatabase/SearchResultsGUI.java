@@ -19,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import static mjodatabase.MasterGUI.currentDate;
 
 
 public class SearchResultsGUI extends JDialog
@@ -96,7 +95,7 @@ public class SearchResultsGUI extends JDialog
               }
          };
           
-          this.setTitle("Inventory as of " + currentDate.toString());
+
           transData = new Object[transList.size()][infoOnTransactionTable.length];
           GregorianCalendar cal;
           String temp;

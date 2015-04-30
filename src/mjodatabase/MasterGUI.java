@@ -18,10 +18,12 @@ import javax.swing.InputVerifier;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -71,7 +73,10 @@ public class MasterGUI extends javax.swing.JFrame {
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JTextField middleNameTextField;
     private javax.swing.JTextField yearTextField;
-    private boolean isViewingResults;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem changePriceMenuItem;
+    private JMenuItem deleteMedicineMenuItem;
      
     
     // TRANSACTION LIST COMPONENTS
@@ -142,6 +147,12 @@ public class MasterGUI extends javax.swing.JFrame {
                    MJOBranch.medicineInitializer.showWindow();
               }
          });
+          
+          
+          menuBar = new JMenuBar();
+          menu = new JMenu("Additional options");
+          changePriceMenuItem = new JMenuItem("Change the price of a product");
+          deleteMedicineMenuItem = new JMenuItem("Remove a product from the inventory");
         
         
          /* ************************
@@ -403,6 +414,8 @@ public class MasterGUI extends javax.swing.JFrame {
      private void switchToTransactionSearchView()
      {
           getContentPane().removeAll();
+          setJMenuBar(null);
+          setTitle("Search for a transaction...");
           
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -506,7 +519,8 @@ public class MasterGUI extends javax.swing.JFrame {
         pack();
      }
      
-     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
+     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)
+     {
           if (lastNameTextField.getText().isEmpty()
                || firstNameTextField.getText().isEmpty()
                || middleNameTextField.getText().isEmpty()
@@ -516,11 +530,14 @@ public class MasterGUI extends javax.swing.JFrame {
                          + "Supplying a month is optional but a year should be specified. ", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
                  return;
             }
-          
-          
-          JOptionPane.showMessageDialog(null, "This feature is still under development.\n"
-                  + "Showing full transaction list instead.", "NOTICE", JOptionPane.INFORMATION_MESSAGE);
-          MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.getTransactionList());
+
+          MJOBranch.searchResultsViewer.setTitle("Search results for " + lastNameTextField.getText()
+               + ", "  + firstNameTextField.getText() + " " + middleNameTextField.getText() + " in "
+               + monthsComboBox.getModel().getElementAt(monthsComboBox.getSelectedIndex()) + " "+ Integer.parseInt(yearTextField.getText()));
+          MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.searchTransactions(
+                  firstNameTextField.getText(), middleNameTextField.getText(),
+                  lastNameTextField.getText(), Integer.parseInt(yearTextField.getText()),
+                  monthsComboBox.getSelectedIndex()-1));
     }
      
      
@@ -533,6 +550,11 @@ public class MasterGUI extends javax.swing.JFrame {
     private void switchToMedicineInventoryView()
     {
          getContentPane().removeAll();
+         
+         menuBar.add(menu);
+         menu.add(changePriceMenuItem);
+         menu.add(deleteMedicineMenuItem);
+         setJMenuBar(menuBar);
          
          theTableForGUI = new JTable();      
           theScrollPaneForGUI =
@@ -661,8 +683,8 @@ public class MasterGUI extends javax.swing.JFrame {
     public void switchToTransactionListView()
     {
          getContentPane().removeAll();
+         setJMenuBar(null);
          
-         //needs a similar code here
          theTableForGUI = new JTable();
           theScrollPaneForGUI =
                      new JScrollPane(theTableForGUI,
@@ -709,7 +731,7 @@ public class MasterGUI extends javax.swing.JFrame {
     
     public void updateTransactionTable(List<Transaction> transList)
      {
-          this.setTitle("Inventory as of " + currentDate.toString());
+          this.setTitle("Transaction Records as of " + currentDate.toString());
           transData = new Object[transList.size()][infoOnTransactionTable.length];
           GregorianCalendar cal;
           String temp;

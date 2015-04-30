@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.GregorianCalendar;
-import javax.swing.ButtonGroup;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -182,7 +181,7 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
         compNameLabel.setBounds(10, 170, 119, 20);
 
         getContentPane().add(membershipCheckBox);
-        membershipCheckBox.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        membershipCheckBox.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         membershipCheckBox.setBounds(180, 220, 51, 29);
         membershipCheckBox.setSelected(false);
         membershipCheckBox.addActionListener(new ActionListener()

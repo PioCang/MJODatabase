@@ -152,7 +152,23 @@ public class MasterGUI extends javax.swing.JFrame {
           menuBar = new JMenuBar();
           menu = new JMenu("Additional options");
           changePriceMenuItem = new JMenuItem("Change the price of a product");
+          changePriceMenuItem.addActionListener(new ActionListener()
+          {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   MJOBranch.priceChanger.showWindow();
+              }
+         });
           deleteMedicineMenuItem = new JMenuItem("Remove a product from the inventory");
+          deleteMedicineMenuItem.addActionListener(new ActionListener()
+          {
+              @Override
+              public void actionPerformed(ActionEvent e)
+              {
+                   MJOBranch.deleter.showWindow();
+              }
+         });
         
         
          /* ************************

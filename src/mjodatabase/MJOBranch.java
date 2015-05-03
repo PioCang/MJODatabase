@@ -24,6 +24,8 @@ public class MJOBranch
      public static TransactionItemCreatorGUI itemSelector;
      public static TransactionItemListViewerGUI itemViewer;
      public static SearchResultsGUI searchResultsViewer;
+     public static MedicinePriceChangerGUI priceChanger;
+     public static MedicineDeleterGUI deleter;
 
      /**
       * Default Constructor instantiates an empty ArrayList upon instantiation.
@@ -50,6 +52,8 @@ public class MJOBranch
           
           MJOBranch mjo = new MJOBranch();
           medicineInitializer = new MedicineCreatorGUI(mjo);
+          priceChanger = new MedicinePriceChangerGUI(mjo);
+          deleter = new MedicineDeleterGUI(mjo);
           transactionInitializer = new TransactionCreatorGUI(mjo);
           freeItemsBuilder = new TransactionItemListBuilderGUI(true);
           purchasedItemsBuilder = new TransactionItemListBuilderGUI(false);

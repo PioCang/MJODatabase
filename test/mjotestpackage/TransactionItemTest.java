@@ -107,7 +107,7 @@ public class TransactionItemTest
           }
           catch(Exception e)
           {
-               assertEquals(e.getMessage(), "Order quantity should be a positive number.");
+               assertEquals(e.getMessage(), "Order quantity should be a positive whole number.");
           }
      }
 }

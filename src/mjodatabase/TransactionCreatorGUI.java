@@ -365,10 +365,8 @@ public class TransactionCreatorGUI extends javax.swing.JDialog
                    }
               }
               
-              
-               /************** TO DO **********/
-//SAVE CHANGES TO INVENTORY HERE!!!
-
+               StorageOperations.encodeMedicines(mjo.getInventory());
+               mjo.setInventory(StorageOperations.retrieveMedicines());
                mjo.addTransactionToList(newTrans);
                StorageOperations.encodeTransactions(mjo.getTransactionList());
                mjo.setTransactionList(StorageOperations.retrieveTransactions());

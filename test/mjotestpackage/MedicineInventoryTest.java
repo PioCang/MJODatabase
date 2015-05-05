@@ -429,4 +429,125 @@ public class MedicineInventoryTest
                fail("Not expected to catch any exceptions here.");
           }
      }
+     
+     @Test
+     public void checkIfPricesChanged()
+     {
+          GregorianCalendar exp = new GregorianCalendar(2016, 1, 14);
+          GregorianCalendar del = new GregorianCalendar(1932, 0, 1);
+          Medicine med1 = null, med2 = null, med3 = null, med4 = null, med5 = null
+               ,med6 = null;
+
+          MJOBranch mjo = new MJOBranch();
+
+          try
+          {
+               med5 = new Medicine("Zinc", "Enervon", "09077", exp, del, 100, 12.0);
+               med1 = new Medicine("Paracetamol", "Biogesic", "1", exp, del, 50, 2.5);
+               med2 = new Medicine("Paracetamol", "Biogesic", "2", exp, del, 25, 2.5);
+               med3 = new Medicine("Paracetamol", "Biogesic", "3", exp, del, 75, 2.5);
+               med4 = new Medicine("Ibuprofen", "Advil", "09077", exp, del, 1000, 1.0);
+               med6 = new Medicine("Ibuprofen", "Advil", "09077", exp, del, 2000, 1.0);  
+
+               MJOBranch.addMedicineToList(mjo.getInventory(), med1);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med2);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med3);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med4);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med5);
+               MJOBranch.addMedicineToList(mjo.getInventory(), med6);
+               
+               ArrayList<Medicine> newMeds = new ArrayList<>(1), deadMeds = new ArrayList<>(1);
+               double newPrice = 69;
+               
+               Medicine newMed = null;
+               String targetGenericName = null, targetBrandName = null;
+               targetGenericName = "Paracetamol";
+               targetBrandName = "Biogesic";
+               
+               for (Medicine oldMed : mjo.getInventory())
+               {
+                    if (oldMed.getGenericName().equals(targetGenericName)
+                        && oldMed.getBrandName().equals(targetBrandName))
+                    {
+                         newMed = new Medicine(oldMed.getGenericName(),
+                                   oldMed.getBrandName(),
+                                   oldMed.getLotNumber(),
+                                   oldMed.getExpiryDate(),
+                                   oldMed.getDeliveryDate(),
+                                   oldMed.getCurrentQuantity(),
+                                   newPrice);
+                         deadMeds.add(oldMed);
+                         newMeds.add(newMed);
+                    }
+               }
+              
+              for(Medicine med : deadMeds)
+              {
+                   mjo.removeMedicineFromInventory(med);
+              }
+              
+              for(Medicine med : newMeds)
+              {
+                   MJOBranch.addMedicineToList(mjo.getInventory(), med);
+              }
+              
+              for (Medicine oldMed : mjo.getInventory())
+               {
+                    if (oldMed.getGenericName().equals(targetGenericName)
+                        && oldMed.getBrandName().equals(targetBrandName))
+                    {
+                         assertEquals(newPrice, oldMed.getPricePerPiece(), Math.pow(10, -5));
+                    }
+               }
+              
+              
+              deadMeds.clear();
+              newMeds.clear();
+              
+              targetGenericName = "Ibuprofen";
+              targetBrandName = "Advil";
+               
+               for (Medicine oldMed : mjo.getInventory())
+               {
+                    if (oldMed.getGenericName().equals(targetGenericName)
+                        && oldMed.getBrandName().equals(targetBrandName))
+                    {
+                         newMed = new Medicine(oldMed.getGenericName(),
+                                   oldMed.getBrandName(),
+                                   oldMed.getLotNumber(),
+                                   oldMed.getExpiryDate(),
+                                   oldMed.getDeliveryDate(),
+                                   oldMed.getCurrentQuantity(),
+                                   newPrice);
+                         deadMeds.add(oldMed);
+                         newMeds.add(newMed);
+                    }
+               }
+              
+              for(Medicine med : deadMeds)
+              {
+                   mjo.removeMedicineFromInventory(med);
+              }
+              
+              for(Medicine med : newMeds)
+              {
+                   MJOBranch.addMedicineToList(mjo.getInventory(), med);
+              }
+              
+              for (Medicine oldMed : mjo.getInventory())
+               {
+                    if (oldMed.getGenericName().equals(targetGenericName)
+                        && oldMed.getBrandName().equals(targetBrandName))
+                    {
+                         assertEquals(newPrice, oldMed.getPricePerPiece(), Math.pow(10, -5));
+                    }
+               }
+              
+              StorageOperations.encodeMedicines(mjo.getInventory());
+          }
+          catch(IllegalArgumentException e)
+          {
+               fail("Not expected to catch any exceptions here.");
+          }
+     }
 }

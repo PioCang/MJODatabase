@@ -110,11 +110,15 @@ public class MedicinePriceChangerGUI extends JDialog
                   JTextField texf = (JTextField) input;
                   try
                   {
-                       double quantity = Double.parseDouble(pppTextField.getText());
+                       double quantity = Double.parseDouble(texf.getText());
+                       if (quantity <= 0 )
+                       {
+                            throw new IllegalArgumentException("Price Per Piece should be a positive number.");
+                       }
                   }
                   catch(Exception e)
                   {
-                       JOptionPane.showMessageDialog(null, "Price per piece is not a number.", "ERROR!", JOptionPane.WARNING_MESSAGE);
+                       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR!", JOptionPane.WARNING_MESSAGE);
                        return false;
                   }
                   return true;
@@ -292,6 +296,11 @@ layout.setHorizontalGroup(
                          newMeds.add(newMed);
                     }
                }
+              
+              if (deadMeds.isEmpty())
+              {
+                   throw new IllegalArgumentException("No such Medicine was found.");
+              }
               
               for(Medicine med : deadMeds)
               {

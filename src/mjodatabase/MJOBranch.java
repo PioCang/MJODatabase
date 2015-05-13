@@ -311,7 +311,7 @@ public class MJOBranch
           left.clear();
           for (Transaction trans : this.getTransactionList())
           {
-               if (trans.getFirstName().compareToIgnoreCase(fName) == 0)
+               if (containsIgnoreCase(trans.getFirstName(), fName))
                {
                     left.add(trans);
                }
@@ -320,7 +320,7 @@ public class MJOBranch
           right.clear();
           for (Transaction trans : left)
           {
-               if (trans.getMiddleName().compareToIgnoreCase(mName) == 0)
+               if (containsIgnoreCase(trans.getMiddleName(), mName))
                {
                     right.add(trans);
                }
@@ -329,7 +329,7 @@ public class MJOBranch
           left.clear();
           for (Transaction trans : right)
           {
-               if (trans.getLastName().compareToIgnoreCase(lName) == 0)
+               if (containsIgnoreCase(trans.getLastName(), lName))
                {
                     left.add(trans);
                }
@@ -362,6 +362,25 @@ public class MJOBranch
                return left;
           }
      }
+     
+    private static boolean containsIgnoreCase(String beingTested, String beingTestedAgainstString)
+    {
+        if (beingTested == null || beingTestedAgainstString == null)
+        {
+            return false;
+        }
+
+        int len = beingTestedAgainstString.length();
+        int max = beingTested.length() - len;
+        for (int i = 0; i <= max; i++)
+        {
+            if (beingTested.regionMatches(true, i, beingTestedAgainstString, 0, len))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

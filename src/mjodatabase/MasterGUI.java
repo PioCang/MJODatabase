@@ -356,9 +356,6 @@ public class MasterGUI extends javax.swing.JFrame {
     }
 
     private void medicineInventoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicineInventoryButtonActionPerformed
-        /*
-         MJOBranch.medicineInventoryGUI.showWindow();
-        this.dispose();*/
          switchToMedicineInventoryView();
     }
     
@@ -550,10 +547,11 @@ public class MasterGUI extends javax.swing.JFrame {
           MJOBranch.searchResultsViewer.setTitle("Search results for " + lastNameTextField.getText()
                + ", "  + firstNameTextField.getText() + " " + middleNameTextField.getText() + " in "
                + monthsComboBox.getModel().getElementAt(monthsComboBox.getSelectedIndex()) + " "+ Integer.parseInt(yearTextField.getText()));
-          MJOBranch.searchResultsViewer.updateAndShowResultsTable(mjo.searchTransactions(
-                  firstNameTextField.getText(), middleNameTextField.getText(),
-                  lastNameTextField.getText(), Integer.parseInt(yearTextField.getText()),
-                  monthsComboBox.getSelectedIndex()-1));
+          MJOBranch.searchResultsViewer.updateAndShowResultsTable(
+                  mjo.searchTransactions(
+                         firstNameTextField.getText(), middleNameTextField.getText(),
+                         lastNameTextField.getText(), Integer.parseInt(yearTextField.getText()),
+                         monthsComboBox.getSelectedIndex()-1));
     }
      
      
@@ -764,8 +762,8 @@ public class MasterGUI extends javax.swing.JFrame {
                transData[i][3] = transList.get(i).getMiddleName();
                transData[i][4] = transList.get(i).getCompanyName();
                transData[i][5] = transList.get(i).isMember();
-               transData[i][6] = "Click to view...";
-               transData[i][7] = "Click to view..."; // Dapat free memds JButton ito
+               transData[i][6] = "CLICK ME!";
+               transData[i][7] = "CLICK ME!"; // Dapat free memds JButton ito
                transData[i][8] = transList.get(i).getGrandTotal();
           }
 
@@ -781,6 +779,10 @@ public class MasterGUI extends javax.swing.JFrame {
                    if (!returnComp.getBackground().equals(getSelectionBackground()))
                    {
                        Color bg = (row % 2 == 0)? alternateColor : whiteColor;
+                       if (column == 6 || column == 7)
+                       {
+                            bg = Color.CYAN;
+                       }
                        returnComp .setBackground(bg);
                        bg = null;
                    }

@@ -112,8 +112,8 @@ public class SearchResultsGUI extends JDialog
                transData[i][3] = transList.get(i).getMiddleName();
                transData[i][4] = transList.get(i).getCompanyName();
                transData[i][5] = transList.get(i).isMember();
-               transData[i][6] = "Click to view...";
-               transData[i][7] = "Click to view..."; // Dapat free memds JButton ito
+               transData[i][6] = "CLICK ME!";
+               transData[i][7] = "CLICK ME!"; // Dapat free memds JButton ito
                transData[i][8] = transList.get(i).getGrandTotal();
           }
 
@@ -129,6 +129,10 @@ public class SearchResultsGUI extends JDialog
                    if (!returnComp.getBackground().equals(getSelectionBackground()))
                    {
                        Color bg = (row % 2 == 0)? alternateColor : whiteColor;
+                       if (column == 6 || column == 7)
+                       {
+                            bg = Color.CYAN;
+                       }
                        returnComp .setBackground(bg);
                        bg = null;
                    }

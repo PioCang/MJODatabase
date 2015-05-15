@@ -289,7 +289,7 @@ layout.setHorizontalGroup(
                                    oldMed.getLotNumber(),
                                    oldMed.getExpiryDate(),
                                    oldMed.getDeliveryDate(),
-                                   oldMed.getCurrentQuantity(),
+                                   oldMed.getInitialQuantity(),
                                    newPrice);
                          deadMeds.add(oldMed);
                          newMeds.add(newMed);

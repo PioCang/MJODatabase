@@ -272,7 +272,6 @@ public class MedicineCreatorGUI extends javax.swing.JDialog
     delDateClooser.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
     delDateClooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
     delDateClooser.setCalendarPreferredSize(new Dimension(350, 300));
-    delDateClooser.setMinDate(new GregorianCalendar());
 
     expDateChooser.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
         new datechooser.view.appearance.ViewAppearance("custom",
